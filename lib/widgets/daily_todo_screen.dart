@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:things_to_do/utils/colors.dart';
-import '../widgets/custom_tasks_list_card.dart';
+import 'custom_tasks_list_card.dart';
 
 class DailyTODOScreen extends StatelessWidget {
   const DailyTODOScreen({Key? key}) : super(key: key);

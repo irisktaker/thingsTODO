@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:things_to_do/screens/daily_todo_screen.dart';
-import 'package:things_to_do/screens/monthly_todo_screen.dart';
-import 'package:things_to_do/screens/weekly_todo_screen.dart';
+import 'package:things_to_do/widgets/daily_todo_screen.dart';
+import 'package:things_to_do/widgets/monthly_todo_screen.dart';
+import 'package:things_to_do/widgets/weekly_todo_screen.dart';
 import 'package:things_to_do/utils/colors.dart';
 
 class ThingsToDoScreen extends StatefulWidget {
