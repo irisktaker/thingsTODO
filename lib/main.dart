@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:things_to_do/screens/important_tasks_screen.dart';
+import 'package:things_to_do/screens/later_task_screen.dart';
 import 'package:things_to_do/screens/new_task_screen.dart';
 import 'package:things_to_do/screens/things_to_do_screen.dart';
 import 'package:things_to_do/utils/colors.dart';
 
+import 'screens/done_task_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() {
@@ -34,9 +37,13 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) =>  LoginScreen(),
+        '/': (context) => LoginScreen(),
         ThingsToDoScreen.screenRoute: (context) => const ThingsToDoScreen(),
         NewTaskScreen.screenRoute: (context) => const NewTaskScreen(),
+        ImportantTaskScreen.screenRoute: (context) =>
+            const ImportantTaskScreen(),
+        DoneTaskScreen.screenRoute: (context) => const DoneTaskScreen(),
+        LaterTaskScreen.screenRoute: (context) => const LaterTaskScreen(),
       },
     );
   }
