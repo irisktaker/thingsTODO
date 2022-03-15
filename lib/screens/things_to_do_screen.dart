@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:things_to_do/screens/new_task_screen.dart';
 import 'package:things_to_do/widgets/daily_todo_screen.dart';
 import 'package:things_to_do/widgets/monthly_todo_screen.dart';
 import 'package:things_to_do/widgets/weekly_todo_screen.dart';
 import 'package:things_to_do/utils/colors.dart';
+
+import '../widgets/search_text_field.dart';
 
 class ThingsToDoScreen extends StatefulWidget {
   static const screenRoute = 'thingsToDoScreen';
@@ -44,6 +47,14 @@ class _ThingsToDoScreenState extends State<ThingsToDoScreen> {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
+                  Icons.notifications_active,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, NewTaskScreen.screenRoute);
+                },
+                icon: const Icon(
                   Icons.add,
                 ),
               ),
@@ -71,7 +82,7 @@ class _ThingsToDoScreenState extends State<ThingsToDoScreen> {
               horizontal: 20,
               vertical: 10,
             ),
-            child: buildTextField(context),
+            child: buildSearchTextField(context),
           ),
           TabBar(
             isScrollable: false,
@@ -86,40 +97,6 @@ class _ThingsToDoScreenState extends State<ThingsToDoScreen> {
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  TextField buildTextField(BuildContext context) {
-    return TextField(
-      onTap: () {},
-      decoration: InputDecoration(
-        suffixIcon: GestureDetector(
-          onTap: () {},
-          child: Image.asset(
-            "assets/icons/search.png",
-            scale: 3,
-          ),
-        ),
-        fillColor: AppColors().whiteColor,
-        filled: true,
-        hintText: 'Search Task',
-        hintStyle: TextStyle(
-          color: AppColors().lightGreyColor,
-          fontSize: 16,
-          fontStyle: FontStyle.italic,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: const BorderSide(
-            width: 0,
-            style: BorderStyle.none,
-          ),
-        ),
-        contentPadding: const EdgeInsets.all(16),
-      ),
-      style: TextStyle(
-        color: AppColors().blackColor,
       ),
     );
   }

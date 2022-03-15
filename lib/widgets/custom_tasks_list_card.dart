@@ -14,6 +14,9 @@ class BuildTasksListCard extends StatelessWidget {
     String timeNow = DateFormat('kk:mm \n a').format(now);
 
     Size size = MediaQuery.of(context).size;
+
+    print('buildSlidable build');
+
     return SizedBox(
       width: size.width,
       height: size.height,
@@ -29,6 +32,8 @@ class BuildTasksListCard extends StatelessWidget {
   Widget buildSlidable(
       BuildContext context, Size size, String timeNow, int index) {
     void doNothing(BuildContext context) {}
+
+    print('-------------------  buildSlidable build test ------------------- ');
     return Slidable(
       key: const ValueKey(0),
       startActionPane: ActionPane(
@@ -36,7 +41,11 @@ class BuildTasksListCard extends StatelessWidget {
         dismissible: DismissiblePane(onDismissed: () {}),
         children: [
           SlidableAction(
-            onPressed: doNothing,
+            onPressed: ((context) {
+              Singleton.instance.newTaskDataList[index].isDone =
+                  !Singleton.instance.newTaskDataList[index].isDone;
+              
+            }),
             backgroundColor: AppColors().greenColor,
             foregroundColor: AppColors().whiteColor,
             icon: Icons.done,
@@ -49,7 +58,9 @@ class BuildTasksListCard extends StatelessWidget {
         dismissible: DismissiblePane(onDismissed: () {}),
         children: [
           SlidableAction(
-            onPressed: doNothing,
+            onPressed: (context){
+              Singleton.instance.newTaskDataList[index].isLater = !Singleton.instance.newTaskDataList[index].isLater;
+            },
             backgroundColor: AppColors().redColor,
             foregroundColor: AppColors().whiteColor,
             icon: Icons.watch_later_outlined,
@@ -62,6 +73,7 @@ class BuildTasksListCard extends StatelessWidget {
   }
 
   Widget taskListCard(Size size, String timeNow, int index) {
+    print('------------------- taskListCard build test -------------------');
     return Container(
       width: size.width,
       height: 65,
@@ -114,6 +126,9 @@ class BuildTasksListCard extends StatelessWidget {
                           Singleton.instance.newTaskDataList[index].isFavorite =
                               !Singleton
                                   .instance.newTaskDataList[index].isFavorite;
+
+                          print(
+                              '------------------- setState build test -------------------');
                         });
                       },
                       icon: Singleton.instance.newTaskDataList[index].isFavorite

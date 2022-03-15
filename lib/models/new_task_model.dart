@@ -8,6 +8,7 @@ class NewTask {
   // String taskDateTime; from calender
   Color taskPriority;
   bool isDone;
+  bool isLater;
   bool isDeleted;
   bool isFavorite;
   String taskNotification;
@@ -20,6 +21,7 @@ class NewTask {
     // required this.taskDateTime,
     required this.taskPriority,
     required this.isDone,
+    required this.isLater,
     required this.isDeleted,
     required this.isFavorite,
     required this.taskNotification,

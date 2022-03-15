@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:things_to_do/screens/new_task_screen.dart';
 import 'package:things_to_do/screens/things_to_do_screen.dart';
 import 'package:things_to_do/utils/colors.dart';
 
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginScreen(),
         ThingsToDoScreen.screenRoute: (context) => const ThingsToDoScreen(),
+        NewTaskScreen.screenRoute: (context) => const NewTaskScreen(),
       },
     );
   }
