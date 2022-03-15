@@ -37,7 +37,7 @@ class DailyTODOScreen extends StatelessWidget {
                   color: Colors.grey.shade700,
                 ),
               ),
-              const Text(
+              Text(
                 "Naser",
                 style: TextStyle(
                   fontSize: 18,

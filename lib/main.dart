@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ThingsTODO',
       theme: ThemeData(
+        primaryColor: AppColors().primaryColor,
         appBarTheme: AppBarTheme(
           backgroundColor: AppColors().primaryColor,
           elevation: 0,
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginScreen(),
+        '/': (context) =>  LoginScreen(),
         ThingsToDoScreen.screenRoute: (context) => const ThingsToDoScreen(),
         NewTaskScreen.screenRoute: (context) => const NewTaskScreen(),
       },
