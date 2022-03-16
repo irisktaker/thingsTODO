@@ -31,8 +31,6 @@ class BuildTasksListCard extends StatelessWidget {
 
   Widget buildSlidable(
       BuildContext context, Size size, String timeNow, int index) {
-    void doNothing(BuildContext context) {}
-
     print('-------------------  buildSlidable build test ------------------- ');
     return Slidable(
       key: const ValueKey(0),
@@ -44,7 +42,6 @@ class BuildTasksListCard extends StatelessWidget {
             onPressed: ((context) {
               Singleton.instance.newTaskDataList[index].isDone =
                   !Singleton.instance.newTaskDataList[index].isDone;
-              
             }),
             backgroundColor: AppColors().greenColor,
             foregroundColor: AppColors().whiteColor,
@@ -58,8 +55,9 @@ class BuildTasksListCard extends StatelessWidget {
         dismissible: DismissiblePane(onDismissed: () {}),
         children: [
           SlidableAction(
-            onPressed: (context){
-              Singleton.instance.newTaskDataList[index].isLater = !Singleton.instance.newTaskDataList[index].isLater;
+            onPressed: (context) {
+              Singleton.instance.newTaskDataList[index].isLater =
+                  !Singleton.instance.newTaskDataList[index].isLater;
             },
             backgroundColor: AppColors().redColor,
             foregroundColor: AppColors().whiteColor,
