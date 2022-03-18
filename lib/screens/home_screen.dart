@@ -10,16 +10,16 @@ import 'package:things_to_do/utils/colors.dart';
 
 import '../widgets/search_text_field.dart';
 
-class ThingsToDoScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   static const screenRoute = 'thingsToDoScreen';
 
-  const ThingsToDoScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<ThingsToDoScreen> createState() => _ThingsToDoScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _ThingsToDoScreenState extends State<ThingsToDoScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

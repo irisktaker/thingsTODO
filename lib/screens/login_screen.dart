@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:things_to_do/screens/things_to_do_screen.dart';
+import 'package:things_to_do/screens/home_screen.dart';
 import 'package:things_to_do/utils/colors.dart';
 
 import '../widgets/custom_circle.dart';
@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await storage.write(key: 'U', value: _userNameController.text);
     await storage.write(key: 'P', value: _passwordController.text);
 
-    Navigator.pushReplacementNamed(context, ThingsToDoScreen.screenRoute);
+    Navigator.pushReplacementNamed(context, HomeScreen.screenRoute);
   }
 
   Future<void> getUserLoginInfo() async {
