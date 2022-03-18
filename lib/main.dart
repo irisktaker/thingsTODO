@@ -1,15 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:things_to_do/screens/important_tasks_screen.dart';
 import 'package:things_to_do/screens/later_task_screen.dart';
 import 'package:things_to_do/screens/new_task_screen.dart';
-import 'package:things_to_do/screens/things_to_do_screen.dart';
+import 'package:things_to_do/screens/home_screen.dart';
 import 'package:things_to_do/utils/colors.dart';
 
+import 'database/hive_data_store.dart';
+import 'models/task.dart';
 import 'screens/done_task_screen.dart';
 import 'screens/login_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter<Task>(TaskAdapter());
+  var box = await Hive.openBox<Task>('tasks');
+
+  box.values.forEach((task) {
+    if (task.createdAt.day != DateTime.now().day) {
+      box.delete(task.id);
+    }
+  });
+
+  runApp(BaseWidget(child: const MyApp()));
+}
+
+class BaseWidget extends InheritedWidget {
+  BaseWidget({Key? key, required this.child}) : super(key: key, child: child);
+  final HiveDataStore dataStore = HiveDataStore();
+  final Widget child;
+
+  static BaseWidget of(BuildContext context) {
+    final base = context.dependOnInheritedWidgetOfExactType<BaseWidget>();
+    if (base != null) {
+      return base;
+    } else {
+      throw StateError('Could not find ancestor widget of type BaseWidget');
+    }
+  }
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return false;
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +73,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(),
-        ThingsToDoScreen.screenRoute: (context) => const ThingsToDoScreen(),
+        HomeScreen.screenRoute: (context) => const HomeScreen(),
         NewTaskScreen.screenRoute: (context) => const NewTaskScreen(),
         ImportantTaskScreen.screenRoute: (context) =>
             const ImportantTaskScreen(),

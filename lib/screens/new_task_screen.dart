@@ -3,10 +3,30 @@ import 'package:things_to_do/utils/colors.dart';
 import 'package:things_to_do/widgets/custom_circle.dart';
 import 'package:things_to_do/widgets/search_text_field.dart';
 
-class NewTaskScreen extends StatelessWidget {
+class NewTaskScreen extends StatefulWidget {
   static const screenRoute = 'newTaskScreen';
 
   const NewTaskScreen({Key? key}) : super(key: key);
+
+  @override
+  State<NewTaskScreen> createState() => _NewTaskScreenState();
+}
+
+class _NewTaskScreenState extends State<NewTaskScreen> {
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +69,28 @@ class NewTaskScreen extends StatelessWidget {
             buildFieldText(
               text: "Category",
             ),
-            buildFieldText(
-              text: "Pick Date & Time",
+            Container(
+              width: double.infinity,
+              height: 60,
+              color: AppColors().whiteColor,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                onPressed: () {
+                  _selectDate(context);
+                },
+                child: Text(
+                  "${selectedDate.toLocal()}".split(' ')[0],
+                  style: TextStyle(
+                    color: AppColors().lightGreyColor,
+                  ),
+                ),
+              ),
+            ),
+            Divider(
+              height: 0,
+              color: Colors.grey.shade300,
+              thickness: 1,
             ),
             Container(
               height: 40,
@@ -90,11 +130,7 @@ class NewTaskScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(
-              height: 0,
-              color: Colors.grey.shade300,
-              thickness: 1,
-            ),
+            Divider(height: 0, color: Colors.grey.shade300, thickness: 1),
             buildFieldText(
               text: "Notification",
             ),
@@ -131,10 +167,12 @@ class NewTaskScreen extends StatelessWidget {
 
   Widget buildFieldText({
     required String text,
+    void Function()? onTap,
   }) {
     return Column(
       children: [
         TextField(
+          onTap: onTap,
           decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 20,

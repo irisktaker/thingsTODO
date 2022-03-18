@@ -9,13 +9,9 @@ import 'custom_circle.dart';
 class BuildTasksListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
-    String timeNow = DateFormat('kk:mm \n a').format(now);
-
     Size size = MediaQuery.of(context).size;
-
-    print('buildSlidable build');
+    DateTime now = DateTime.now();
+    String timeNow = DateFormat('kk:mm \n a').format(now);
 
     return SizedBox(
       width: size.width,
@@ -31,7 +27,6 @@ class BuildTasksListCard extends StatelessWidget {
 
   Widget buildSlidable(
       BuildContext context, Size size, String timeNow, int index) {
-    print('-------------------  buildSlidable build test ------------------- ');
     return Slidable(
       key: const ValueKey(0),
       startActionPane: ActionPane(
@@ -71,7 +66,6 @@ class BuildTasksListCard extends StatelessWidget {
   }
 
   Widget taskListCard(Size size, String timeNow, int index) {
-    print('------------------- taskListCard build test -------------------');
     return Container(
       width: size.width,
       height: 65,
@@ -124,9 +118,6 @@ class BuildTasksListCard extends StatelessWidget {
                           Singleton.instance.newTaskDataList[index].isFavorite =
                               !Singleton
                                   .instance.newTaskDataList[index].isFavorite;
-
-                          print(
-                              '------------------- setState build test -------------------');
                         });
                       },
                       icon: Singleton.instance.newTaskDataList[index].isFavorite
