@@ -3,11 +3,13 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:things_to_do/screens/edit_task_screen.dart';
+import 'package:things_to_do/screens/later_task_screen.dart';
 
 import 'package:things_to_do/utils/colors.dart';
 
 import '../main.dart';
 import '../models/task.dart';
+import '../screens/edit_task_screen.dart';
 import 'custom_circle.dart';
 
 class DailyTODOScreen extends StatefulWidget {
@@ -29,7 +31,7 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
 
     return ListView(
       children: [
-        buildCompletedTasksSection(),
+        buildCompletedTasksSection(base, box),
         ValueListenableBuilder(
           valueListenable: base.dataStore.listenToTasks(),
           builder: (BuildContext context, Box<Task> box, Widget? child) {
@@ -62,11 +64,8 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const EditTakScreen()));
+                                      Navigator.pushNamed(
+                                          context, EditTakScreen.screenRoute);
                                     },
                                     child: const Text('Edit'),
                                   )
@@ -83,6 +82,7 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
                                 onPressed: ((context) {
                                   setState(() {
                                     doneTasks++;
+                                    task.save();
                                   });
                                 }),
                                 backgroundColor: AppColors().blueColor,
@@ -107,8 +107,10 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
                             children: [
                               SlidableAction(
                                 onPressed: (context) {
-                                  // Singleton.instance.newTaskDataList[index].isLater =
-                                  //     !Singleton.instance.newTaskDataList[index].isLater;
+                                  task.id;
+                                  Navigator.pushNamed(
+                                      context, LaterTaskScreen.screenRoute);
+                                  task.delete();
                                 },
                                 backgroundColor: AppColors().orangeColor,
                                 foregroundColor: AppColors().whiteColor,
@@ -259,10 +261,21 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
     );
   }
 
-  Widget buildCompletedTasksSection() {
+  Widget buildCompletedTasksSection(BaseWidget base, Box<Task> box) {
+    String greeting() {
+      var hour = DateTime.now().hour;
+      if (hour < 12) {
+        return 'Good Morning';
+      }
+      if (hour < 17) {
+        return 'Good Afternoon';
+      }
+      return 'Good Evening';
+    }
+
     return StatefulBuilder(builder: (context, setState) {
-      final base = BaseWidget.of(context);
-      final box = base.dataStore.box;
+      // final base = BaseWidget.of(context);
+      // final box = base.dataStore.box;
       var tasks = box.values.toList();
 
       return Container(
@@ -278,14 +291,14 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
             Row(
               children: [
                 Text(
-                  "Good Morning ",
+                  greeting(),
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey.shade700,
                   ),
                 ),
                 const Text(
-                  "Naser",
+                  " Naser",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
