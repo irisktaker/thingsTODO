@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:things_to_do/screens/edit_task_screen.dart';
 
 import 'package:things_to_do/screens/important_tasks_screen.dart';
 import 'package:things_to_do/screens/later_task_screen.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
             const ImportantTaskScreen(),
         DoneTaskScreen.screenRoute: (context) => const DoneTaskScreen(),
         LaterTaskScreen.screenRoute: (context) => const LaterTaskScreen(),
+        EditTakScreen.screenRoute:(context) => const EditTakScreen(),
       },
     );
   }
