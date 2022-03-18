@@ -64,7 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               IconButton(
                 onPressed: () {
-
                   Navigator.pushNamed(context, NewTaskScreen.screenRoute);
                 },
                 icon: const Icon(

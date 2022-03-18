@@ -153,7 +153,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     onTap: () {},
                     color: AppColors().greenColor,
                   ),
-                  Spacer(),
+                  const Spacer(),
                 ],
               ),
             ),
