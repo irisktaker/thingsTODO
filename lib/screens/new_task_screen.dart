@@ -3,10 +3,13 @@ import 'package:things_to_do/utils/colors.dart';
 import 'package:things_to_do/widgets/custom_circle.dart';
 import 'package:things_to_do/widgets/search_text_field.dart';
 
+import '../main.dart';
+import '../models/task.dart';
+
 class NewTaskScreen extends StatefulWidget {
   static const screenRoute = 'newTaskScreen';
 
-  const NewTaskScreen({Key? key}) : super(key: key);
+  NewTaskScreen({Key? key}) : super(key: key);
 
   @override
   State<NewTaskScreen> createState() => _NewTaskScreenState();
@@ -19,7 +22,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
@@ -28,8 +31,23 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     }
   }
 
+  TextEditingController taskTitleController = TextEditingController();
+  TextEditingController taskDescriptionController = TextEditingController();
+  TextEditingController taskCategoryController = TextEditingController();
+  TextEditingController taskNotificationController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    taskTitleController.text;
+    taskDescriptionController.text;
+    taskCategoryController.text;
+    taskNotificationController.text;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final base = BaseWidget.of(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -64,11 +82,20 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             ),
             buildFieldText(
               text: "Task Name",
+              controller: taskTitleController,
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  var task = Task.create(
+                      taskTitle: value,
+                      taskCategory: taskCategoryController.text);
+                  base.dataStore.addTask(task: task);
+                }
+              },
             ),
-            buildFieldText(text: "Description"),
             buildFieldText(
-              text: "Category",
-            ),
+                text: "Description", controller: taskDescriptionController),
+            buildFieldText(
+                text: "Category", controller: taskCategoryController),
             Container(
               width: double.infinity,
               height: 60,
@@ -132,11 +159,16 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             ),
             Divider(height: 0, color: Colors.grey.shade300, thickness: 1),
             buildFieldText(
-              text: "Notification",
-            ),
+                text: "Notification", controller: taskNotificationController),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                var task = Task.create(
+                    taskTitle: taskTitleController.text,
+                    taskCategory: taskCategoryController.text);
+                base.dataStore.addTask(task: task);
+                Navigator.pop(context);
+              },
               child: const Text(
                 "ADD",
               ),
@@ -167,12 +199,14 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
 
   Widget buildFieldText({
     required String text,
-    void Function()? onTap,
+    required TextEditingController? controller,
+    void Function(String)? onSubmitted,
   }) {
     return Column(
       children: [
         TextField(
-          onTap: onTap,
+          controller: controller,
+          onSubmitted: onSubmitted,
           decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 20,

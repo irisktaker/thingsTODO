@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginScreen(),
         HomeScreen.screenRoute: (context) => const HomeScreen(),
-        NewTaskScreen.screenRoute: (context) => const NewTaskScreen(),
+        NewTaskScreen.screenRoute: (context) => NewTaskScreen(),
         ImportantTaskScreen.screenRoute: (context) =>
             const ImportantTaskScreen(),
         DoneTaskScreen.screenRoute: (context) => const DoneTaskScreen(),

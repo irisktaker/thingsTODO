@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               IconButton(
                 onPressed: () {
+
                   Navigator.pushNamed(context, NewTaskScreen.screenRoute);
                 },
                 icon: const Icon(
@@ -210,12 +211,12 @@ List<Map<String, dynamic>> drawerList = [
   {
     'icon': Icons.category_outlined,
     'title': "Category",
-    'screen': NewTaskScreen.screenRoute,
+    'screen': LaterTaskScreen.screenRoute,
   },
   {
     'icon': Icons.settings,
     'title': "Settings",
-    'screen': NewTaskScreen.screenRoute,
+    'screen': LaterTaskScreen.screenRoute,
   },
   {
     'icon': Icons.logout,
