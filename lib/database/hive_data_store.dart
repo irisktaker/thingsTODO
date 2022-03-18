@@ -6,6 +6,7 @@ import '../models/task.dart';
 
 class HiveDataStore {
   static const taskBoxName = 'tasks';
+  
   final Box<Task> box = Hive.box<Task>(taskBoxName);
 
 
