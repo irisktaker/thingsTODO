@@ -22,17 +22,17 @@ class WeeklyTODOScreen extends StatelessWidget {
             initialDisplayDate: DateTime.now(),
             headerHeight: 45,
             headerDateFormat: "MMM, yyy",
-            headerStyle: CalendarHeaderStyle(
+            headerStyle: const CalendarHeaderStyle(
               textAlign: TextAlign.center,
-              backgroundColor: AppColors().whiteColor,
-              textStyle: TextStyle(color: AppColors().blackColor, fontSize: 20),
+              backgroundColor: ThemeColors.whiteColor,
+              textStyle: TextStyle(color: ThemeColors.blackColor, fontSize: 20),
             ),
-            cellBorderColor: AppColors().primaryColor,
-            backgroundColor: AppColors().primaryColor,
-            todayHighlightColor: AppColors().whiteColor,
+            cellBorderColor: ThemeColors.primaryColor,
+            backgroundColor: ThemeColors.primaryColor,
+            todayHighlightColor: ThemeColors.whiteColor,
             showDatePickerButton: false,
-            todayTextStyle: TextStyle(
-              color: AppColors().blackColor,
+            todayTextStyle: const TextStyle(
+              color: ThemeColors.blackColor,
             ),
           ),
         ),

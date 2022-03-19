@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/colors.dart';
+import '../../utils/colors.dart';
 
 TextField buildSearchTextField(BuildContext context) {
     return TextField(
@@ -13,11 +13,11 @@ TextField buildSearchTextField(BuildContext context) {
             scale: 3,
           ),
         ),
-        fillColor: AppColors().whiteColor,
+        fillColor: ThemeColors.whiteColor,
         filled: true,
         hintText: 'Search Task',
-        hintStyle: TextStyle(
-          color: AppColors().lightGreyColor,
+        hintStyle: const TextStyle(
+          color: ThemeColors.lightGreyColor,
           fontSize: 16,
           fontStyle: FontStyle.italic,
         ),
@@ -30,8 +30,8 @@ TextField buildSearchTextField(BuildContext context) {
         ),
         contentPadding: const EdgeInsets.all(16),
       ),
-      style: TextStyle(
-        color: AppColors().blackColor,
+      style: const TextStyle(
+        color: ThemeColors.blackColor,
       ),
     );
   }

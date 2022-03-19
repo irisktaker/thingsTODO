@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/colors.dart';
+import '../../utils/colors.dart';
 
 class BuildTextFieldWidget extends StatelessWidget {
   String hintText;
@@ -19,16 +19,16 @@ class BuildTextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: TextStyle(
-        color: AppColors().greyColor,
+      style: const TextStyle(
+        color: ThemeColors.greyColor,
       ),
       keyboardType: TextInputType.text,
       obscureText: obscureText,
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText: hintText,
-        hintStyle: TextStyle(
-          color: AppColors().lightGreyColor,
+        hintStyle: const TextStyle(
+          color: ThemeColors.lightGreyColor,
         ),
         prefixIcon: prefixIcon,
       ),
