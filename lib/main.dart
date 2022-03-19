@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:things_to_do/screens/edit_task_screen.dart';
 
-import 'package:things_to_do/screens/important_tasks_screen.dart';
-import 'package:things_to_do/screens/later_task_screen.dart';
-import 'package:things_to_do/screens/new_task_screen.dart';
-import 'package:things_to_do/screens/home_screen.dart';
-import 'package:things_to_do/utils/colors.dart';
-
-import 'database/hive_data_store.dart';
-import 'models/task.dart';
+import '/screens/edit_task_screen.dart';
+import '/screens/important_tasks_screen.dart';
+import '/screens/later_task_screen.dart';
+import '/screens/new_task_screen.dart';
+import '/screens/home_screen.dart';
 import 'screens/done_task_screen.dart';
 import 'screens/login_screen.dart';
+import 'database/hive_data_store.dart';
+import '/utils/colors.dart';
+import 'models/task.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -80,7 +79,7 @@ class MyApp extends StatelessWidget {
             const ImportantTaskScreen(),
         DoneTaskScreen.screenRoute: (context) => const DoneTaskScreen(),
         LaterTaskScreen.screenRoute: (context) => const LaterTaskScreen(),
-        EditTakScreen.screenRoute:(context) => const EditTakScreen(),
+        EditTakScreen.screenRoute: (context) => const EditTakScreen(),
       },
     );
   }

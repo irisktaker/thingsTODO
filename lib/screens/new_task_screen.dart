@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:things_to_do/utils/colors.dart';
-import 'package:things_to_do/widgets/custom_circle.dart';
-import 'package:things_to_do/widgets/search_text_field.dart';
 
+import '/utils/colors.dart';
+import '/widgets/custom_circle.dart';
+import '/widgets/search_text_field.dart';
 import '../main.dart';
 import '../models/task.dart';
 

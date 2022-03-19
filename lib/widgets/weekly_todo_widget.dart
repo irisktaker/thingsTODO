@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:things_to_do/utils/colors.dart';
+
+import '/utils/colors.dart';
 
 class WeeklyTODOScreen extends StatelessWidget {
   const WeeklyTODOScreen({Key? key}) : super(key: key);

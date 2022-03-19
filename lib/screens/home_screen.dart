@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:things_to_do/screens/done_task_screen.dart';
-import 'package:things_to_do/screens/important_tasks_screen.dart';
-import 'package:things_to_do/screens/later_task_screen.dart';
-import 'package:things_to_do/screens/new_task_screen.dart';
-import 'package:things_to_do/widgets/daily_todo_widget.dart';
-import 'package:things_to_do/widgets/monthly_todo_widget.dart';
-import 'package:things_to_do/widgets/weekly_todo_widget.dart';
-import 'package:things_to_do/utils/colors.dart';
 
+import '/screens/done_task_screen.dart';
+import '/screens/important_tasks_screen.dart';
+import '/screens/later_task_screen.dart';
+import '/screens/new_task_screen.dart';
+import '/widgets/daily_todo_widget.dart';
+import '/widgets/monthly_todo_widget.dart';
+import '/widgets/weekly_todo_widget.dart';
+import '/utils/colors.dart';
 import '../widgets/search_text_field.dart';
 
 class HomeScreen extends StatefulWidget {

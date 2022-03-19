@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:things_to_do/screens/home_screen.dart';
-import 'package:things_to_do/utils/colors.dart';
 
+import '/screens/home_screen.dart';
+import '/utils/colors.dart';
 import '../widgets/custom_circle.dart';
 import '../widgets/text_field_widget.dart';
 

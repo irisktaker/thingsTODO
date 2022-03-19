@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:things_to_do/utils/colors.dart';
 
-import '../widgets/search_text_field.dart';
 import 'new_task_screen.dart';
+import '/utils/colors.dart';
+import '../widgets/search_text_field.dart';
 
 class DoneTaskScreen extends StatelessWidget {
   static const screenRoute = 'doneTaskScreen';
