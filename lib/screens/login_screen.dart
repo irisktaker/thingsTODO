@@ -19,9 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  FlutterSecureStorage storage = const FlutterSecureStorage();
-
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
   final LocalAuthentication localAuth = LocalAuthentication();
 
   Future<void> _authorize() async {

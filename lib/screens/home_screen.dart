@@ -3,9 +3,9 @@ import 'package:things_to_do/screens/done_task_screen.dart';
 import 'package:things_to_do/screens/important_tasks_screen.dart';
 import 'package:things_to_do/screens/later_task_screen.dart';
 import 'package:things_to_do/screens/new_task_screen.dart';
-import 'package:things_to_do/widgets/daily_todo_screen.dart';
-import 'package:things_to_do/widgets/monthly_todo_screen.dart';
-import 'package:things_to_do/widgets/weekly_todo_screen.dart';
+import 'package:things_to_do/widgets/daily_todo_widget.dart';
+import 'package:things_to_do/widgets/monthly_todo_widget.dart';
+import 'package:things_to_do/widgets/weekly_todo_widget.dart';
 import 'package:things_to_do/utils/colors.dart';
 
 import '../widgets/search_text_field.dart';
@@ -32,46 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            toolbarHeight: 60,
-            leading: Builder(
-              builder: ((context) => InkWell(
-                    onTap: () {
-                      setState(() {
-                        Scaffold.of(context).openDrawer();
-                      });
-                    },
-                    child: Image.asset(
-                      "assets/icons/menubar.png",
-                      scale: 3.0,
-                    ),
-                  )),
-            ),
-            bottom: buildTabBar(context),
-            title: Image.asset(
-              "assets/logo/logo.png",
-              width: 110,
-              height: 26,
-              fit: BoxFit.fill,
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.notifications_active,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, NewTaskScreen.screenRoute);
-                },
-                icon: const Icon(
-                  Icons.add,
-                ),
-              ),
-            ],
-          ),
+          appBar: customAppBar(context),
           drawer: buildDrawer(size),
           body: const TabBarView(
             children: [
@@ -82,6 +43,49 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  AppBar customAppBar(BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      toolbarHeight: 60,
+      leading: Builder(
+        builder: ((context) => InkWell(
+              onTap: () {
+                setState(() {
+                  Scaffold.of(context).openDrawer();
+                });
+              },
+              child: Image.asset(
+                "assets/icons/menubar.png",
+                scale: 3.0,
+              ),
+            )),
+      ),
+      bottom: buildTabBar(context),
+      title: Image.asset(
+        "assets/logo/logo.png",
+        width: 110,
+        height: 26,
+        fit: BoxFit.fill,
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.notifications_active,
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, NewTaskScreen.screenRoute);
+          },
+          icon: const Icon(
+            Icons.add,
+          ),
+        ),
+      ],
     );
   }
 

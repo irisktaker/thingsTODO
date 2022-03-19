@@ -48,6 +48,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     final base = BaseWidget.of(context);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
