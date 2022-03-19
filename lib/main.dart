@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '/screens/edit_task_screen.dart';
-import '/screens/important_tasks_screen.dart';
-import '/screens/later_task_screen.dart';
-import '/screens/new_task_screen.dart';
-import '/screens/home_screen.dart';
-import 'screens/done_task_screen.dart';
-import 'screens/login_screen.dart';
 import 'database/hive_data_store.dart';
 import '/utils/colors.dart';
 import 'models/task.dart';
+import 'view/home_screen/home_screen.dart';
+import 'view/login_screen/login_screen.dart';
+import 'view/tasks_screens/done_task/done_task_screen.dart';
+import 'view/tasks_screens/edit_task/edit_task_screen.dart';
+import 'view/tasks_screens/important_tasks/important_tasks_screen.dart';
+import 'view/tasks_screens/later_tasks/later_task_screen.dart';
+import 'view/tasks_screens/new_task/new_task_screen.dart';
 
 Future<void> main() async {
   await Hive.initFlutter();
@@ -56,16 +56,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'ThingsTODO',
       theme: ThemeData(
-        primaryColor: AppColors().primaryColor,
-        appBarTheme: AppBarTheme(
-          backgroundColor: AppColors().primaryColor,
+        primaryColor: ThemeColors.primaryColor,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: ThemeColors.primaryColor,
           elevation: 0,
           centerTitle: false,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: AppColors().primaryColor,
-            onPrimary: AppColors().whiteColor,
+            primary: ThemeColors.primaryColor,
+            onPrimary: ThemeColors.whiteColor,
             minimumSize: const Size(double.infinity, 48),
           ),
         ),
@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginScreen(),
         HomeScreen.screenRoute: (context) => const HomeScreen(),
-        NewTaskScreen.screenRoute: (context) => NewTaskScreen(),
+        NewTaskScreen.screenRoute: (context) => const NewTaskScreen(),
         ImportantTaskScreen.screenRoute: (context) =>
             const ImportantTaskScreen(),
         DoneTaskScreen.screenRoute: (context) => const DoneTaskScreen(),
