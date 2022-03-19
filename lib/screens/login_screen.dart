@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:things_to_do/screens/home_screen.dart';
 import 'package:things_to_do/utils/colors.dart';
 
@@ -15,18 +17,39 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   final TextEditingController _userNameController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
 
   FlutterSecureStorage storage = const FlutterSecureStorage();
 
+  final LocalAuthentication localAuth = LocalAuthentication();
+
+  Future<void> _authorize() async {
+    bool _isAuthorized = false;
+    try {
+      _isAuthorized = await localAuth.authenticate(
+        biometricOnly: true,
+        localizedReason: 'Please authenticate to Complete this process',
+        useErrorDialogs: true,
+        stickyAuth: true,
+      );
+    } on PlatformException catch (e) {
+      print(e);
+    }
+
+    if (!mounted) return;
+    setState(() {
+      if (_isAuthorized) {
+        Navigator.pushReplacementNamed(context, HomeScreen.screenRoute);
+      } else {
+        null;
+      }
+    });
+  }
+
   Future<void> rememberUserLogin(BuildContext context) async {
     await storage.write(key: 'U', value: _userNameController.text);
     await storage.write(key: 'P', value: _passwordController.text);
-
-    Navigator.pushReplacementNamed(context, HomeScreen.screenRoute);
   }
 
   Future<void> getUserLoginInfo() async {
@@ -95,7 +118,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () async {
-                    await rememberUserLogin(context);
+                    if (formKey.currentState!.validate()) {
+                      await rememberUserLogin(context);
+                      await _authorize();
+                    }
+                    Navigator.pushReplacementNamed(
+                        context, HomeScreen.screenRoute);
                   },
                   child: Text(
                     "Login".toUpperCase(),
