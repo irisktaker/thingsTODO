@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:things_to_do/utils/colors.dart';
+
+import '../widgets/search_text_field.dart';
+import 'new_task_screen.dart';
 
 class DoneTaskScreen extends StatelessWidget {
   static const screenRoute = 'doneTaskScreen';
@@ -8,9 +12,38 @@ class DoneTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text("DoneTaskScreen"),
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        toolbarHeight: 60,
+        title: const Text("Done Tasks"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications_active,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, NewTaskScreen.screenRoute);
+            },
+            icon: const Icon(
+              Icons.add,
+            ),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+              height: 80,
+              padding: const EdgeInsets.all(16),
+              color: AppColors().primaryColor,
+              child: buildSearchTextField(context)),
+          Center(
+            child: Text("DoneTaskScreen"),
+          ),
+        ],
       ),
     );
   }

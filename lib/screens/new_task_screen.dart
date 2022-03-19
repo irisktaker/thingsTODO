@@ -9,7 +9,7 @@ import '../models/task.dart';
 class NewTaskScreen extends StatefulWidget {
   static const screenRoute = 'newTaskScreen';
 
-  NewTaskScreen({Key? key}) : super(key: key);
+  const NewTaskScreen({Key? key}) : super(key: key);
 
   @override
   State<NewTaskScreen> createState() => _NewTaskScreenState();
@@ -48,7 +48,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     final base = BaseWidget.of(context);
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

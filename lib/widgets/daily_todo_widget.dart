@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:things_to_do/screens/edit_task_screen.dart';
-import 'package:things_to_do/screens/later_task_screen.dart';
+import 'dart:math' as math;
 
-import 'package:things_to_do/utils/colors.dart';
-
-import '../main.dart';
-import '../models/task.dart';
-import '../screens/edit_task_screen.dart';
+import '/screens/edit_task_screen.dart';
+import '/screens/later_task_screen.dart';
+import '/utils/colors.dart';
 import 'custom_circle.dart';
+import '../screens/edit_task_screen.dart';
+import '../models/task.dart';
+import '../main.dart';
 
 class DailyTODOScreen extends StatefulWidget {
   const DailyTODOScreen({Key? key}) : super(key: key);
@@ -199,7 +199,10 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
                                           )),
                                     ),
                                     buildCustomCircle(
-                                      color: Colors.black,
+                                      color: Color((math.Random().nextDouble() *
+                                                  0xFFFFFF)
+                                              .toInt())
+                                          .withOpacity(1.0),
                                     )
                                   ],
                                 ),
