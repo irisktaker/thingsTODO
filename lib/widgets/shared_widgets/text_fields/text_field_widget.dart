@@ -1,6 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
-import '../../utils/colors.dart';
+import '../../../utils/colors.dart';
 
 class BuildTextFieldWidget extends StatelessWidget {
   String hintText;
@@ -8,12 +10,12 @@ class BuildTextFieldWidget extends StatelessWidget {
   TextEditingController? controller;
   bool obscureText;
 
-  BuildTextFieldWidget({
+  BuildTextFieldWidget({Key? key, 
     required this.hintText,
     required this.prefixIcon,
     required this.controller,
     this.obscureText = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

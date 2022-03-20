@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
 import 'login_screen_bloc.dart';
-import '/widgets/shared_widgets/custom_circle.dart';
-import '/widgets/shared_widgets/text_field_widget.dart';
+import '../../widgets/shared_widgets/custom_circle_avatar/custom_circle.dart';
+import '../../widgets/shared_widgets/text_fields/text_field_widget.dart';
 import '../home_screen/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    buildCustomCircle(
+                    BuildCustomCircle(
                       color: const Color(0xFF3d5097),
                       radius: 24,
                       child: Image.asset(
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: ThemeColors.whiteColor,
                       ),
                     ),
-                    buildCustomCircle(
+                    BuildCustomCircle(
                       color: const Color(0xFF0098f3),
                       radius: 24,
                       child: Image.asset(
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: ThemeColors.whiteColor,
                       ),
                     ),
-                    buildCustomCircle(
+                    BuildCustomCircle(
                       color: const Color(0xFFf7243a),
                       radius: 24,
                       child: Image.asset(

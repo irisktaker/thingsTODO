@@ -18,7 +18,7 @@ class Task extends HiveObject {
           DateTime? createdAt,
           required String taskCategory}) =>
       Task(
-          id: Uuid().v1(),
+          id: const Uuid().v1(),
           createdAt: createdAt ?? DateTime.now(),
           taskTitle: taskTitle,
           taskCategory: taskCategory,

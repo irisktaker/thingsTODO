@@ -23,6 +23,7 @@ class LoginScreenBloc {
         stickyAuth: true,
       );
     } on PlatformException catch (e) {
+      // ignore: avoid_print
       print(e);
     }
 

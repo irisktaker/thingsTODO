@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:things_to_do/utils/colors.dart';
 
 class ColorParser {
-  List<Color> colorList = [
+  static const List<Color> colorList = [
     ThemeColors.redColor,
     ThemeColors.orangeColor,
     ThemeColors.blueColor,

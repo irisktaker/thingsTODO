@@ -9,7 +9,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '/main.dart';
 import '/models/task.dart';
 import '/utils/colors.dart';
-import '/widgets/shared_widgets/custom_circle.dart';
+import '../../../shared_widgets/custom_circle_avatar/custom_circle.dart';
 import '/view/tasks_screens/edit_task/edit_task_screen.dart';
 import '/view/tasks_screens/later_tasks/later_task_screen.dart';
 
@@ -190,7 +190,7 @@ class _TasksListSectionState extends State<TasksListSection> {
                                         ),
                                 )),
                           ),
-                          buildCustomCircle(
+                          BuildCustomCircle(
                             color: Color((math.Random().nextDouble() * 0xFFFFFF)
                                     .toInt())
                                 .withOpacity(1.0),

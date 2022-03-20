@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '/utils/colors.dart';
-import '/widgets/shared_widgets/custom_circle.dart';
-import '/widgets/shared_widgets/search_text_field.dart';
 import '/main.dart';
 import '/models/task.dart';
+import '/utils/colors.dart';
+import '/utils/colors_parser.dart';
+import 'new_task_screen_bloc.dart';
+import '/widgets/shared_widgets/search_text_field.dart';
+import '/widgets/shared_widgets/text_fields/tasks_text_field.dart';
+import '/widgets/shared_widgets/custom_circle_avatar/build_priority_check_colors.dart';
 
 class NewTaskScreen extends StatefulWidget {
   static const screenRoute = 'newTaskScreen';
@@ -16,33 +19,17 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
-  DateTime selectedDate = DateTime.now();
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
-  TextEditingController taskTitleController = TextEditingController();
-  TextEditingController taskDescriptionController = TextEditingController();
-  TextEditingController taskCategoryController = TextEditingController();
-  TextEditingController taskNotificationController = TextEditingController();
+  final NewTaskScreenBloc _bloc = NewTaskScreenBloc();
 
   @override
   void initState() {
     super.initState();
-    taskTitleController.text;
-    taskDescriptionController.text;
-    taskCategoryController.text;
-    taskNotificationController.text;
+
+    // useless ??!
+    _bloc.taskTitleController.text;
+    _bloc.taskDescriptionController.text;
+    _bloc.taskCategoryController.text;
+    _bloc.taskNotificationController.text;
   }
 
   @override
@@ -80,22 +67,15 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               color: ThemeColors.primaryColor,
               child: buildSearchTextField(context),
             ),
-            buildFieldText(
+            TasksTextFieldWidget(
               text: "Task Name",
-              controller: taskTitleController,
-              onSubmitted: (value) {
-                if (value.isNotEmpty) {
-                  var task = Task.create(
-                      taskTitle: value,
-                      taskCategory: taskCategoryController.text);
-                  base.dataStore.addTask(task: task);
-                }
-              },
+              controller: _bloc.taskTitleController,
             ),
-            buildFieldText(
-                text: "Description", controller: taskDescriptionController),
-            buildFieldText(
-                text: "Category", controller: taskCategoryController),
+            TasksTextFieldWidget(
+                text: "Description",
+                controller: _bloc.taskDescriptionController),
+            TasksTextFieldWidget(
+                text: "Category", controller: _bloc.taskCategoryController),
             Container(
               width: double.infinity,
               height: 60,
@@ -104,10 +84,10 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               alignment: Alignment.centerLeft,
               child: TextButton(
                 onPressed: () {
-                  _selectDate(context);
+                  _bloc.selectDate(context, setState);
                 },
                 child: Text(
-                  "${selectedDate.toLocal()}".split(' ')[0],
+                  "${_bloc.selectedDate.toLocal()}".split(' ')[0],
                   style: const TextStyle(
                     color: ThemeColors.lightGreyColor,
                   ),
@@ -134,40 +114,36 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             Container(
               height: 60,
               color: ThemeColors.whiteColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  buildPriorityCheckColors(
-                    onTap: () {},
-                    color: ThemeColors.redColor,
-                  ),
-                  buildPriorityCheckColors(
-                    onTap: () {},
-                    color: ThemeColors.orangeColor,
-                  ),
-                  buildPriorityCheckColors(
-                    onTap: () {},
-                    color: ThemeColors.blueColor,
-                  ),
-                  buildPriorityCheckColors(
-                    onTap: () {},
-                    color: ThemeColors.greenColor,
-                  ),
-                  const Spacer(),
-                ],
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: ColorParser.colorList.length,
+                itemBuilder: (ctx, i) => BuildPriorityCheckColors(
+                  isSelected: _bloc.selectedColor == ColorParser.colorList[i],
+                  onTap: () {
+                    setState(() {
+                      _bloc.selectedColor = ColorParser.colorList[i];
+                    });
+                  },
+                  color: ColorParser.colorList[i],
+                ),
               ),
             ),
             Divider(height: 0, color: Colors.grey.shade300, thickness: 1),
-            buildFieldText(
-                text: "Notification", controller: taskNotificationController),
+            TasksTextFieldWidget(
+                text: "Notification",
+                controller: _bloc.taskNotificationController),
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                var task = Task.create(
-                    taskTitle: taskTitleController.text,
-                    taskCategory: taskCategoryController.text);
-                base.dataStore.addTask(task: task);
-                Navigator.pop(context);
+                if (_bloc.validatePriorityColor()) {
+                  var task = Task.create(
+                      taskTitle: _bloc.taskTitleController.text,
+                      taskCategory: _bloc.taskCategoryController.text);
+                  base.dataStore.addTask(task: task);
+                  Navigator.pop(context);
+                } else {
+                  _bloc.showToast(context);
+                }
               },
               child: const Text(
                 "ADD",
@@ -176,57 +152,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget buildPriorityCheckColors({
-    required void Function()? onTap,
-    required Color color,
-  }) {
-    return MaterialButton(
-      minWidth: 25,
-      onPressed: onTap,
-      child: CircleAvatar(
-        backgroundColor: color.withOpacity(0.4),
-        radius: 10,
-        child: buildCustomCircle(
-          radius: 8,
-          color: color,
-        ),
-      ),
-    );
-  }
-
-  Widget buildFieldText({
-    required String text,
-    required TextEditingController? controller,
-    void Function(String)? onSubmitted,
-  }) {
-    return Column(
-      children: [
-        TextField(
-          controller: controller,
-          onSubmitted: onSubmitted,
-          decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 20,
-              ),
-              fillColor: ThemeColors.whiteColor,
-              filled: true,
-              border: InputBorder.none,
-              hintText: text,
-              hintStyle: const TextStyle(
-                color: ThemeColors.lightGreyColor,
-                fontSize: 14,
-              )),
-        ),
-        Divider(
-          height: 0,
-          color: Colors.grey.shade300,
-          thickness: 1,
-        ),
-      ],
     );
   }
 }
