@@ -191,9 +191,10 @@ class _TasksListSectionState extends State<TasksListSection> {
                                 )),
                           ),
                           BuildCustomCircle(
-                            color: Color((math.Random().nextDouble() * 0xFFFFFF)
-                                    .toInt())
-                                .withOpacity(1.0),
+                            color: Color(int.parse(task.taskColor.toString()) ),
+                            // color: Color((math.Random().nextDouble() * 0xFFFFFF)
+                            //         .toInt())
+                            //     .withOpacity(1.0),
                           )
                         ],
                       ),

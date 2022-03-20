@@ -137,8 +137,13 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               onPressed: () {
                 if (_bloc.validatePriorityColor()) {
                   var task = Task.create(
-                      taskTitle: _bloc.taskTitleController.text,
-                      taskCategory: _bloc.taskCategoryController.text);
+                    taskTitle: _bloc.taskTitleController.text,
+                    taskCategory: _bloc.taskCategoryController.text,
+                    taskColor: ColorParser()
+                        .takeColorAndReturnIndex(_bloc.selectedColor), // Fuck
+                    taskDesc: _bloc.taskDescriptionController.text,
+                    taskFinalDate: _bloc.selectedDate.toString(),
+                  );
                   base.dataStore.addTask(task: task);
                   Navigator.pop(context);
                 } else {
