@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '/main.dart';
-import '/models/task.dart';
 import '/utils/colors.dart';
 import '/utils/colors_parser.dart';
 import 'new_task_screen_bloc.dart';
@@ -35,6 +34,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     final base = BaseWidget.of(context);
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -120,9 +120,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 itemBuilder: (ctx, i) => BuildPriorityCheckColors(
                   isSelected: _bloc.selectedColor == ColorParser.colorList[i],
                   onTap: () {
-                    setState(() {
-                      _bloc.selectedColor = ColorParser.colorList[i];
-                    });
+                    setState(
+                      () => _bloc.selectedColor = ColorParser.colorList[i],
+                    );
                   },
                   color: ColorParser.colorList[i],
                 ),
@@ -134,22 +134,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 controller: _bloc.taskNotificationController),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {
-                if (_bloc.validatePriorityColor()) {
-                  var task = Task.create(
-                    taskTitle: _bloc.taskTitleController.text,
-                    taskCategory: _bloc.taskCategoryController.text,
-                    taskColor: ColorParser()
-                        .takeColorAndReturnIndex(_bloc.selectedColor), // Fuck
-                    taskDesc: _bloc.taskDescriptionController.text,
-                    taskFinalDate: _bloc.selectedDate.toString(),
-                  );
-                  base.dataStore.addTask(task: task);
-                  Navigator.pop(context);
-                } else {
-                  _bloc.showToast(context);
-                }
-              },
+              onPressed: () => _bloc.newTaskFormValidate(base, context),
               child: const Text(
                 "ADD",
               ),

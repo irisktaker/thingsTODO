@@ -25,29 +25,38 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
     final base = BaseWidget.of(context);
     final box = base.dataStore.box;
 
-    return ListView(
-      children: [
-        // --
-        CompletedTasksSection(base, box, widget.doneTasks),
+    return ValueListenableBuilder(
+      valueListenable: base.dataStore.listenToTasks(),
+      builder: (BuildContext context, Box<Task> box, Widget? child) {
+        var tasks = box.values.toList();
+        tasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
-        // --
-        ValueListenableBuilder(
-          valueListenable: base.dataStore.listenToTasks(),
-          builder: (BuildContext context, Box<Task> box, Widget? child) {
-            var tasks = box.values.toList();
-            tasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+        tasks = tasks
+            .where(
+              (element) =>
+                  element.taskFinalDate.day == DateTime.now().day &&
+                  element.taskFinalDate.month == DateTime.now().month &&
+                  element.taskFinalDate.year == DateTime.now().year,
+            )
+            .toList();
 
-            return (tasks.isNotEmpty)
+        return ListView(
+          children: [
+            // --
+            CompletedTasksSection(base, box, widget.doneTasks),
+
+            // --
+            (tasks.isNotEmpty)
                 ? TasksListSection(size, base, box, tasks, widget.doneTasks,
                     (task) {
                     setState(() {
                       widget.doneTasks = task;
                     });
                   })
-                : AllTasksDoneSection(size);
-          },
-        ),
-      ],
+                : AllTasksDoneSection(size),
+          ],
+        );
+      },
     );
   }
 }

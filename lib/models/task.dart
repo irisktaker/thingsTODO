@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -22,8 +21,8 @@ class Task extends HiveObject {
           DateTime? createdAt,
           required String taskCategory,
           required String taskDesc,
-          required int taskColor,
-          required String taskFinalDate}) =>
+          required String taskColor,
+          required DateTime taskFinalDate}) =>
       Task(
           id: const Uuid().v1(),
           createdAt: createdAt ?? DateTime.now(),
@@ -53,8 +52,10 @@ class Task extends HiveObject {
   late String taskDesc;
 
   @HiveField(6)
-  late int taskColor;
+  late String taskColor;
 
   @HiveField(7)
-  late String taskFinalDate;
+  late DateTime taskFinalDate;
+
+
 }

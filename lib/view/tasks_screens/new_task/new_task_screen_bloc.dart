@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:things_to_do/main.dart';
+import 'package:things_to_do/models/task.dart';
+import 'package:things_to_do/utils/colors_parser.dart';
 
 class NewTaskScreenBloc {
   TextEditingController taskTitleController = TextEditingController();
@@ -45,8 +48,29 @@ class NewTaskScreenBloc {
     scaffold.showSnackBar(
       SnackBar(
         content: const Text('Field are required'),
-        action: SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        action: SnackBarAction(
+            label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
       ),
     );
+  }
+
+  void newTaskFormValidate(
+    BaseWidget base,
+    BuildContext context,
+  ) {
+    if (validatePriorityColor()) {
+      var task = Task.create(
+        taskTitle: taskTitleController.text,
+        taskCategory: taskCategoryController.text,
+        taskColor:
+            ColorParser().takeColorAndReturnIndex(selectedColor).toString(),
+        taskDesc: taskDescriptionController.text,
+        taskFinalDate: selectedDate,
+      );
+      base.dataStore.addTask(task: task);
+      Navigator.pop(context);
+    } else {
+      showToast(context);
+    }
   }
 }

@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:things_to_do/utils/colors_parser.dart';
 
 import '/main.dart';
 import '/models/task.dart';
@@ -44,6 +45,8 @@ class _TasksListSectionState extends State<TasksListSection> {
             //..
             var task = widget.tasks[index];
 
+            
+
             return InkWell(
               onLongPress: () {
                 showDialog(
@@ -77,6 +80,7 @@ class _TasksListSectionState extends State<TasksListSection> {
                   dismissible: DismissiblePane(onDismissed: () {}),
                   children: [
                     SlidableAction(
+                      
                       onPressed: ((context) {
                         setState(() {
                           widget.doneTasksFun(++widget.doneTasks);
@@ -191,7 +195,8 @@ class _TasksListSectionState extends State<TasksListSection> {
                                 )),
                           ),
                           BuildCustomCircle(
-                            color: Color(int.parse(task.taskColor.toString()) ),
+                            color: ColorParser
+                                .colorList[int.parse(task.taskColor)],
                             // color: Color((math.Random().nextDouble() * 0xFFFFFF)
                             //         .toInt())
                             //     .withOpacity(1.0),

@@ -23,8 +23,8 @@ class TaskAdapter extends TypeAdapter<Task> {
       taskCategory: fields[3] as String,
       isFavorite: fields[4] as bool,
       taskDesc: fields[5] as String,
-      taskColor: fields[6] as int,
-      taskFinalDate: fields[7] as String,
+      taskColor: fields[6] as String,
+      taskFinalDate: fields[7] as DateTime,
     );
   }
 
