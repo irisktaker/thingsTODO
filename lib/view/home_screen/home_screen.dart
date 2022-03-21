@@ -15,8 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int doneTasks = 0;
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -31,11 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.grey.shade200,
           appBar: homeScreenAppBar(context, setState),
           drawer: buildDrawer(size, setState),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
-              DailyTODOScreen(doneTasks),
-              const WeeklyTODOScreen(),
-              const MonthlyTODOScreen(),
+              DailyTODOScreen(),
+              WeeklyTODOScreen(),
+              MonthlyTODOScreen(),
             ],
           ),
         ),

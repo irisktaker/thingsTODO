@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:things_to_do/routes/routes.dart';
 
 import 'models/task.dart';
 import '/utils/colors.dart';
+import '/routes/routes.dart';
 import 'database/hive_data_store.dart';
 
 Future<void> main() async {

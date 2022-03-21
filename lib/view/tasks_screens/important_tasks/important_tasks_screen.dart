@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '/main.dart';
+import '/models/task.dart';
+import '/view/tasks_screens/new_task/new_task_screen.dart';
+import '/widgets/tab_bar_widgets/sections/all_tasks_done_section.dart';
+import '/widgets/tab_bar_widgets/sections/tasks_list_section.dart';
 
 class ImportantTaskScreen extends StatelessWidget {
   static const screenRoute = 'importantTaskScreen';
@@ -7,11 +14,45 @@ class ImportantTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text("ImportantTaskScreen"),
-      ),
+    Size size = MediaQuery.of(context).size;
+    final base = BaseWidget.of(context);
+
+    return ValueListenableBuilder(
+      valueListenable: base.dataStore.listenToTasks(),
+      builder: (BuildContext context, Box<Task> box, Widget? child) {
+        var tasks = box.values.toList();
+        tasks.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+
+        tasks = tasks.where((element) => element.isFavorite == true).toList();
+
+        return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            toolbarHeight: 60,
+            title: const Text("Important Tasks"),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.notifications_active),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, NewTaskScreen.screenRoute);
+                },
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          body: ListView(
+            children: [
+              // --
+              (tasks.isNotEmpty)
+                  ? TasksListSection(tasks, size)
+                  : AllTasksDoneSection(size),
+            ],
+          ),
+        );
+      },
     );
   }
 }

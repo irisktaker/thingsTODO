@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 
 import '/main.dart';
 import '/models/task.dart';
-import 'sections/completed_tasks_section.dart';
-import '../daily_tab/sections/tasks_list_section.dart';
-import '../daily_tab/sections/all_tasks_done_section.dart';
+import '../sections/all_tasks_done_section.dart';
+import '/widgets/tab_bar_widgets/sections/tasks_list_section.dart';
+import '/widgets/tab_bar_widgets/sections/completed_tasks_section.dart';
 
 class DailyTODOScreen extends StatefulWidget {
-  DailyTODOScreen(this.doneTasks, {Key? key}) : super(key: key);
-
-  int doneTasks;
+  const DailyTODOScreen({Key? key}) : super(key: key);
 
   @override
   State<DailyTODOScreen> createState() => _DailyTODOScreenState();
@@ -23,7 +21,6 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final base = BaseWidget.of(context);
-    final box = base.dataStore.box;
 
     return ValueListenableBuilder(
       valueListenable: base.dataStore.listenToTasks(),
@@ -43,16 +40,11 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
         return ListView(
           children: [
             // --
-            CompletedTasksSection(base, box, widget.doneTasks),
+            CompletedTasksSection(tasks),
 
             // --
             (tasks.isNotEmpty)
-                ? TasksListSection(size, base, box, tasks, widget.doneTasks,
-                    (task) {
-                    setState(() {
-                      widget.doneTasks = task;
-                    });
-                  })
+                ? TasksListSection(tasks, size)
                 : AllTasksDoneSection(size),
           ],
         );

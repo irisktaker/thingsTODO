@@ -1,31 +1,24 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:math' as math;
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:things_to_do/utils/colors_parser.dart';
+import 'package:things_to_do/view/tasks_screens/done_task/done_task_screen.dart';
+import 'package:things_to_do/view/tasks_screens/important_tasks/important_tasks_screen.dart';
 
 import '/main.dart';
 import '/models/task.dart';
 import '/utils/colors.dart';
-import '../../../shared_widgets/custom_circle_avatar/custom_circle.dart';
+import '/utils/colors_parser.dart';
 import '/view/tasks_screens/edit_task/edit_task_screen.dart';
 import '/view/tasks_screens/later_tasks/later_task_screen.dart';
+import '/widgets/shared_widgets/custom_circle_avatar/custom_circle.dart';
 
 class TasksListSection extends StatefulWidget {
-  TasksListSection(this.size, this.base, this.box, this.tasks, this.doneTasks,
-      this.doneTasksFun,
-      {Key? key})
-      : super(key: key);
+  TasksListSection(this.tasks, this.size, {Key? key}) : super(key: key);
 
-  Size size;
-  BaseWidget base;
-  Box<Task> box;
   List<Task> tasks;
-  int doneTasks;
-  Function(int doneTasks) doneTasksFun;
+  Size size;
 
   @override
   State<TasksListSection> createState() => _TasksListSectionState();
@@ -34,6 +27,8 @@ class TasksListSection extends StatefulWidget {
 class _TasksListSectionState extends State<TasksListSection> {
   @override
   Widget build(BuildContext context) {
+    final base = BaseWidget.of(context);
+
     return SafeArea(
       child: Container(
         width: widget.size.width,
@@ -42,10 +37,8 @@ class _TasksListSectionState extends State<TasksListSection> {
         child: ListView.builder(
           itemCount: widget.tasks.length,
           itemBuilder: (context, index) {
-            //..
             var task = widget.tasks[index];
-
-            
+            //..
 
             return InkWell(
               onLongPress: () {
@@ -80,10 +73,18 @@ class _TasksListSectionState extends State<TasksListSection> {
                   dismissible: DismissiblePane(onDismissed: () {}),
                   children: [
                     SlidableAction(
-                      
                       onPressed: ((context) {
                         setState(() {
-                          widget.doneTasksFun(++widget.doneTasks);
+                          task.isDone = true;
+
+                          if (task.isDone) {
+                            task.id[index];
+
+                            Navigator.pushNamed(
+                                context, DoneTaskScreen.screenRoute,
+                                arguments: task.isDone);
+                          }
+
                           task.save();
                         });
                       }),
@@ -112,7 +113,6 @@ class _TasksListSectionState extends State<TasksListSection> {
                         task.id;
                         Navigator.pushNamed(
                             context, LaterTaskScreen.screenRoute);
-                        task.delete();
                       },
                       backgroundColor: ThemeColors.orangeColor,
                       foregroundColor: ThemeColors.whiteColor,
@@ -121,7 +121,7 @@ class _TasksListSectionState extends State<TasksListSection> {
                     ),
                     SlidableAction(
                       onPressed: ((context) {
-                        widget.base.dataStore.deleteTask(task: task);
+                        base.dataStore.deleteTask(task: task);
                       }),
                       backgroundColor: ThemeColors.redColor,
                       foregroundColor: ThemeColors.whiteColor,
@@ -180,6 +180,11 @@ class _TasksListSectionState extends State<TasksListSection> {
                                   onPressed: () {
                                     setState(() {
                                       task.isFavorite = !task.isFavorite;
+
+                                      if (task.isFavorite == true) {
+                                        Navigator.pushNamed(context,
+                                            ImportantTaskScreen.screenRoute);
+                                      }
                                     });
                                   },
                                   icon: task.isFavorite

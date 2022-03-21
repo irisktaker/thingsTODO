@@ -1,20 +1,17 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 import '/main.dart';
 import '/models/task.dart';
 import '/utils/colors.dart';
+import '/singleton/singleton.dart';
 
 class CompletedTasksSection extends StatefulWidget {
-  CompletedTasksSection(this.base, this.box, this.doneTasks, {Key? key})
-      : super(key: key);
+  CompletedTasksSection(this.tasksList, {Key? key}) : super(key: key);
 
-  BaseWidget base;
-  Box<Task> box;
-  int doneTasks;
+  List<Task> tasksList;
 
   @override
   State<CompletedTasksSection> createState() => _CompletedTasksSectionState();
@@ -23,18 +20,10 @@ class CompletedTasksSection extends StatefulWidget {
 class _CompletedTasksSectionState extends State<CompletedTasksSection> {
   @override
   Widget build(BuildContext context) {
-    var tasks = widget.box.values.toList();
-
-    String greeting() {
-      var hour = DateTime.now().hour;
-      if (hour < 12) {
-        return 'Good Morning';
-      }
-      if (hour < 17) {
-        return 'Good Afternoon';
-      }
-      return 'Good Evening';
-    }
+    // --
+    final base = BaseWidget.of(context);
+    final box = base.dataStore.box;
+    List<Task> tasks = box.values.toList();
 
     return Container(
       margin: const EdgeInsets.all(16),
@@ -49,7 +38,7 @@ class _CompletedTasksSectionState extends State<CompletedTasksSection> {
           Row(
             children: [
               Text(
-                greeting(),
+                Singleton.instance.greeting(),
                 style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
               ),
               const Text(
@@ -93,7 +82,7 @@ class _CompletedTasksSectionState extends State<CompletedTasksSection> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${widget.doneTasks}/",
+                      "${widget.tasksList.where((element) => element.isDone).toList().length}/",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColors.greenColor,
