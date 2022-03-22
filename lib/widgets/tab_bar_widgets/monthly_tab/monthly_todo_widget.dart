@@ -43,7 +43,7 @@ class MonthlyTODOScreen extends StatelessWidget {
             // --
             (tasks.isNotEmpty)
                 ? TasksListSection(tasks, size)
-                : AllTasksDoneSection(size),
+                : AllTasksDoneSection(tasks,size),
           ],
         );
       },

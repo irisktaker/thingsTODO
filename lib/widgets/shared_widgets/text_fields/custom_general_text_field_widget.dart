@@ -2,17 +2,18 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../utils/colors.dart';
+import '/utils/colors.dart';
 
-class BuildTextFieldWidget extends StatelessWidget {
+class CustomGeneralTextFieldWidget extends StatelessWidget {
   String hintText;
-  Widget prefixIcon;
+  Widget? prefixIcon;
   TextEditingController? controller;
   bool obscureText;
 
-  BuildTextFieldWidget({Key? key, 
+  CustomGeneralTextFieldWidget({
+    Key? key,
     required this.hintText,
-    required this.prefixIcon,
+    this.prefixIcon,
     required this.controller,
     this.obscureText = false,
   }) : super(key: key);

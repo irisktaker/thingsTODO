@@ -47,8 +47,8 @@ class _TasksListSectionState extends State<TasksListSection> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              TaskDetailsScreen(widget.tasks, task, widget.size)));
+                          builder: (context) => TaskDetailsScreen(
+                              widget.tasks, task, widget.size)));
                 }
               },
               onLongPress: () {

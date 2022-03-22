@@ -49,15 +49,15 @@ PreferredSize buildTabBar(BuildContext context) {
   return PreferredSize(
     preferredSize: Size(MediaQuery.of(context).size.width, 110),
     child: Column(
-      children: [
+      children: const [
         Padding(
-          padding: const EdgeInsets.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 10,
           ),
-          child: buildSearchTextField(context),
+          child: CustomSearchWidget(),
         ),
-        const TabBar(
+        TabBar(
           isScrollable: false,
           indicatorColor: ThemeColors.whiteColor,
           unselectedLabelColor: ThemeColors.lightGreyColor,

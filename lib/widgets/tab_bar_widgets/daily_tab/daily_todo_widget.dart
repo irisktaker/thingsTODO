@@ -45,7 +45,7 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
             // --
             (tasks.isNotEmpty)
                 ? TasksListSection(tasks, size)
-                : AllTasksDoneSection(size),
+                : AllTasksDoneSection(tasks, size),
           ],
         );
       },

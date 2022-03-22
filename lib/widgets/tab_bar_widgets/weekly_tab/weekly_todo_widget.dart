@@ -104,7 +104,7 @@ class WeeklyTODOScreen extends StatelessWidget {
                       ],
                     ),
                   )
-                : AllTasksDoneSection(size),
+                : AllTasksDoneSection(tasks, size),
           ],
         );
       },

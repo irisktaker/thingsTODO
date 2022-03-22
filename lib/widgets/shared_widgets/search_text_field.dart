@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
 
-TextField buildSearchTextField(BuildContext context) {
+class CustomSearchWidget extends StatelessWidget {
+  const CustomSearchWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return TextField(
       onTap: () {},
       decoration: InputDecoration(
@@ -35,3 +39,8 @@ TextField buildSearchTextField(BuildContext context) {
       ),
     );
   }
+}
+
+// TextField CustomSearchWidget(BuildContext context) {
+//     return 
+//   }

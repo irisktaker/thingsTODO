@@ -3,7 +3,7 @@ import 'package:things_to_do/main.dart';
 import 'package:things_to_do/models/task.dart';
 import 'package:things_to_do/utils/colors_parser.dart';
 
-class NewTaskScreenBloc {
+class TasksBloc {
   TextEditingController taskTitleController = TextEditingController();
   TextEditingController taskDescriptionController = TextEditingController();
   TextEditingController taskCategoryController = TextEditingController();
@@ -66,6 +66,7 @@ class NewTaskScreenBloc {
             ColorParser().takeColorAndReturnIndex(selectedColor).toString(),
         taskDesc: taskDescriptionController.text,
         taskFinalDate: selectedDate,
+        notification: taskNotificationController.text,
       );
       base.dataStore.addTask(task: task);
       Navigator.pop(context);

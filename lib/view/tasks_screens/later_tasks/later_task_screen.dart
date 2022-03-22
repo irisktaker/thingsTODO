@@ -53,12 +53,12 @@ class LaterTaskScreen extends StatelessWidget {
                   vertical: 10,
                 ),
                 color: ThemeColors.primaryColor,
-                child: buildSearchTextField(context),
+                child: const CustomSearchWidget(),
               ),
               // --
               (tasks.isNotEmpty)
                   ? TasksListSection(tasks, size)
-                  : AllTasksDoneSection(size),
+                  : AllTasksDoneSection(tasks,size),
             ],
           ),
         );

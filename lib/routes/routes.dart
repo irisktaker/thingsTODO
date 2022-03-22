@@ -15,6 +15,6 @@ Map<String, WidgetBuilder> routes = {
   ImportantTaskScreen.screenRoute: (context) => const ImportantTaskScreen(),
   DoneTaskScreen.screenRoute: (context) => const DoneTaskScreen(),
   LaterTaskScreen.screenRoute: (context) => const LaterTaskScreen(),
-  EditTakScreen.screenRoute: (context) => const EditTakScreen(),
+  // EditTakScreen.screenRoute: (context) => const EditTakScreen(),
   // TaskDetailsScreen.screenRoute: (context) => const TaskDetailsScreen(),
 };

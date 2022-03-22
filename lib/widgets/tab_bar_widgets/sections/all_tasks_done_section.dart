@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:things_to_do/models/task.dart';
 import 'package:things_to_do/utils/colors.dart';
 
 class AllTasksDoneSection extends StatelessWidget {
-  AllTasksDoneSection(this.size, {Key? key}) : super(key: key);
+  AllTasksDoneSection(this.tasks, this.size, {Key? key}) : super(key: key);
 
+  List<Task> tasks;
   Size size;
 
   @override
@@ -37,7 +39,9 @@ class AllTasksDoneSection extends StatelessWidget {
             ),
           ),
           Text(
-            "Tomorrow 3:55 PM",
+            "Tomorrow 3:55 PM ",
+            // TODO: 
+            // ${tasks[0].createdAt.day}",
             style: TextStyle(
               fontSize: 16,
               color: ThemeColors.greyColor.withOpacity(0.6),

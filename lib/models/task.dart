@@ -16,7 +16,8 @@ class Task extends HiveObject {
       required this.taskColor,
       required this.taskFinalDate,
       required this.isDone,
-      required this.isLater});
+      required this.isLater,
+      required this.notification});
 
   factory Task.create(
           {required String taskTitle,
@@ -24,7 +25,8 @@ class Task extends HiveObject {
           required String taskCategory,
           required String taskDesc,
           required String taskColor,
-          required DateTime taskFinalDate}) =>
+          required DateTime taskFinalDate,
+          required String notification}) =>
       Task(
           id: const Uuid().v1(),
           createdAt: createdAt ?? DateTime.now(),
@@ -35,7 +37,8 @@ class Task extends HiveObject {
           taskColor: taskColor,
           taskFinalDate: taskFinalDate,
           isDone: false,
-          isLater: false);
+          isLater: false,
+          notification: notification);
 
   @HiveField(0)
   final String id;
@@ -66,4 +69,7 @@ class Task extends HiveObject {
 
   @HiveField(9)
   bool isLater;
+
+  @HiveField(10)
+  late String notification;
 }

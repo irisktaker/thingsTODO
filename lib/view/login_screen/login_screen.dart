@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '/utils/colors.dart';
 import 'login_screen_bloc.dart';
-import '../../widgets/shared_widgets/custom_circle_avatar/custom_circle.dart';
-import '../../widgets/shared_widgets/text_fields/text_field_widget.dart';
 import '../home_screen/home_screen.dart';
+import '/widgets/shared_widgets/custom_circle_avatar/custom_circle.dart';
+import '/widgets/shared_widgets/text_fields/custom_general_text_field_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -59,13 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: Column(
                     children: [
-                      BuildTextFieldWidget(
+                      CustomGeneralTextFieldWidget(
                         controller: _bloc.userNameController,
                         hintText: "Username",
                         prefixIcon: const Icon(Icons.person_outline),
                       ),
                       buildCustomDivider(),
-                      BuildTextFieldWidget(
+                      CustomGeneralTextFieldWidget(
                         controller: _bloc.passwordController,
                         hintText: "Password",
                         prefixIcon: const Icon(Icons.lock_outline),

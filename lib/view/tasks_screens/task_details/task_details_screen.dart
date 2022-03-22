@@ -1,10 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:things_to_do/models/task.dart';
 
+import '/main.dart';
+import '/models/task.dart';
 import '/utils/colors.dart';
-import '/view/tasks_screens/new_task/new_task_screen.dart';
 import '/widgets/shared_widgets/search_text_field.dart';
+import '/view/tasks_screens/new_task/new_task_screen.dart';
+import '/view/tasks_screens/edit_task/edit_task_screen.dart';
 
 class TaskDetailsScreen extends StatelessWidget {
   static const screenRoute = 'taskDetailScreen';
@@ -18,110 +22,135 @@ class TaskDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
-
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        toolbarHeight: 60,
-        title: const Text("Task Details"),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_active),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, NewTaskScreen.screenRoute);
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          Container(
-            height: 200,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10,
+    final base = BaseWidget.of(context);
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.grey.shade200,
+        appBar: AppBar(
+          automaticallyImplyLeading: true,
+          toolbarHeight: 60,
+          title: const Text("Task Details"),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.notifications_active),
             ),
-            color: ThemeColors.primaryColor,
-            child: buildSearchTextField(context),
-          ),
-          Container(
-            height: 380,
-            width: size.width,
-            padding: const EdgeInsets.all(16),
-            margin: const EdgeInsets.only(top: 80, left: 20, right: 20),
-            decoration: const BoxDecoration(
-              color: ThemeColors.whiteColor,
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, NewTaskScreen.screenRoute);
+              },
+              icon: const Icon(Icons.add),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  task.taskTitle,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+          ],
+        ),
+        body: Stack(
+          children: [
+            Container(
+              height: 200,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
+              color: ThemeColors.primaryColor,
+              child: const CustomSearchWidget(),
+            ),
+            Expanded(
+              child: Container(
+                height: 380,
+                width: size.width,
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(top: 80, left: 20, right: 20),
+                decoration: const BoxDecoration(
+                  color: ThemeColors.whiteColor,
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  "${DateFormat.yMMMd().format(task.taskFinalDate)} | ${DateFormat('kk:mm a').format(task.createdAt)}",
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: ThemeColors.lightGreyColor,
-                  ),
-                ),
-                const SizedBox(height: 14),
-                Text(
-                  task.taskDesc,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: ThemeColors.greyColor,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Category: ",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                    ),
                     Text(
-                      task.taskCategory,
+                      task.taskTitle,
                       style: const TextStyle(
-                          fontSize: 14, color: ThemeColors.greyColor),
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "${DateFormat.yMMMd().format(task.taskFinalDate)} | ${DateFormat('kk:mm a').format(task.createdAt)}",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: ThemeColors.lightGreyColor,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      task.taskDesc,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: ThemeColors.greyColor,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        const Text(
+                          "Category: ",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          task.taskCategory,
+                          style: const TextStyle(
+                              fontSize: 14, color: ThemeColors.greyColor),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
+          ],
+        ),
+        bottomNavigationBar: Container(
+          width: size.width,
+          height: 70,
+          color: ThemeColors.whiteColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () {
+                  base.dataStore.deleteTask(task: task);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete_outline),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditTakScreen(tasks, task, size)));
+                },
+                icon: const Icon(Icons.edit),
+              ),
+              IconButton(
+                onPressed: () {
+                  // TODO 
+                  // Navigator.pushNamed(context, EditTakScreen.screenRoute);
+                },
+                icon: const Icon(Icons.schedule),
+              ),
+              IconButton(
+                onPressed: () {
+                  base.dataStore.updateTask(task: task);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.assignment_turned_in_outlined,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
-        backgroundColor: ThemeColors.whiteColor,
-        selectedItemColor: ThemeColors.primaryColor,
-        unselectedItemColor: ThemeColors.primaryColor,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        // showUnselectedLabels: false,
-        currentIndex: currentIndex,
-        onTap: (value) {
-          currentIndex = value;
-        },
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.delete_outline), label: 'Delete'),
-          BottomNavigationBarItem(icon: Icon(Icons.edit), label: 'Edit'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.schedule), label: 'Schedule'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.assignment_turned_in), label: 'Done'),
-        ],
+        ),
       ),
     );
   }

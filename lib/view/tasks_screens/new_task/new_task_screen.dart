@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '/main.dart';
 import '/utils/colors.dart';
 import '/utils/colors_parser.dart';
-import 'new_task_screen_bloc.dart';
+import '/view/tasks_screens/tasks_bloc.dart';
 import '/widgets/shared_widgets/search_text_field.dart';
-import '/widgets/shared_widgets/text_fields/tasks_text_field.dart';
+import '/widgets/shared_widgets/text_fields/custom_tasks_text_field_widget.dart';
 import '/widgets/shared_widgets/custom_circle_avatar/build_priority_check_colors.dart';
 
 class NewTaskScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
-  final NewTaskScreenBloc _bloc = NewTaskScreenBloc();
+  final TasksBloc _bloc = TasksBloc();
 
   @override
   void initState() {
@@ -65,16 +65,16 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 vertical: 10,
               ),
               color: ThemeColors.primaryColor,
-              child: buildSearchTextField(context),
+              child: const CustomSearchWidget(),
             ),
-            TasksTextFieldWidget(
+            CustomTasksTextFieldWidget(
               text: "Task Name",
               controller: _bloc.taskTitleController,
             ),
-            TasksTextFieldWidget(
+            CustomTasksTextFieldWidget(
                 text: "Description",
                 controller: _bloc.taskDescriptionController),
-            TasksTextFieldWidget(
+            CustomTasksTextFieldWidget(
                 text: "Category", controller: _bloc.taskCategoryController),
             Container(
               width: double.infinity,
@@ -129,7 +129,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               ),
             ),
             Divider(height: 0, color: Colors.grey.shade300, thickness: 1),
-            TasksTextFieldWidget(
+            CustomTasksTextFieldWidget(
                 text: "Notification",
                 controller: _bloc.taskNotificationController),
             const Spacer(),
@@ -137,6 +137,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               onPressed: () => _bloc.newTaskFormValidate(base, context),
               child: const Text(
                 "ADD",
+                style: TextStyle(fontSize: 18),
               ),
             ),
           ],
