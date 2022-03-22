@@ -13,4 +13,7 @@ class Singleton {
     }
     return 'Good Evening';
   }
+
+  // ...
+
 }

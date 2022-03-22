@@ -3,7 +3,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '/main.dart';
 import '/models/task.dart';
+import '/utils/colors.dart';
 import '../new_task/new_task_screen.dart';
+import '/widgets/shared_widgets/search_text_field.dart';
 import '/widgets/tab_bar_widgets/sections/tasks_list_section.dart';
 import '/widgets/tab_bar_widgets/sections/all_tasks_done_section.dart';
 
@@ -45,6 +47,14 @@ class DoneTaskScreen extends StatelessWidget {
           ),
           body: ListView(
             children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                color: ThemeColors.primaryColor,
+                child: buildSearchTextField(context),
+              ),
               // --
               (tasks.isNotEmpty)
                   ? TasksListSection(tasks, size)

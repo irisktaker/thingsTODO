@@ -3,15 +3,16 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:things_to_do/view/tasks_screens/done_task/done_task_screen.dart';
-import 'package:things_to_do/view/tasks_screens/important_tasks/important_tasks_screen.dart';
 
 import '/main.dart';
 import '/models/task.dart';
 import '/utils/colors.dart';
 import '/utils/colors_parser.dart';
+import '/view/tasks_screens/done_task/done_task_screen.dart';
 import '/view/tasks_screens/edit_task/edit_task_screen.dart';
 import '/view/tasks_screens/later_tasks/later_task_screen.dart';
+import '/view/tasks_screens/task_details/task_details_screen.dart';
+import '/view/tasks_screens/important_tasks/important_tasks_screen.dart';
 import '/widgets/shared_widgets/custom_circle_avatar/custom_circle.dart';
 
 class TasksListSection extends StatefulWidget {
@@ -32,8 +33,8 @@ class _TasksListSectionState extends State<TasksListSection> {
     return SafeArea(
       child: Container(
         width: widget.size.width,
-        height: 500,
-        padding: const EdgeInsets.only(bottom: 60),
+        height: 640,
+        padding: const EdgeInsets.only(bottom: 80),
         child: ListView.builder(
           itemCount: widget.tasks.length,
           itemBuilder: (context, index) {
@@ -41,6 +42,15 @@ class _TasksListSectionState extends State<TasksListSection> {
             //..
 
             return InkWell(
+              onDoubleTap: () {
+                if (widget.tasks[index] == widget.tasks[index]) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              TaskDetailsScreen(widget.tasks, task, widget.size)));
+                }
+              },
               onLongPress: () {
                 showDialog(
                     context: context,
@@ -110,9 +120,17 @@ class _TasksListSectionState extends State<TasksListSection> {
                   children: [
                     SlidableAction(
                       onPressed: (context) {
-                        task.id;
-                        Navigator.pushNamed(
-                            context, LaterTaskScreen.screenRoute);
+                        setState(() {
+                          task.isLater = true;
+
+                          if (task.isLater) {
+                            task.id[index];
+                            Navigator.pushNamed(
+                                context, LaterTaskScreen.screenRoute);
+                          }
+
+                          task.save();
+                        });
                       },
                       backgroundColor: ThemeColors.orangeColor,
                       foregroundColor: ThemeColors.whiteColor,
@@ -121,6 +139,10 @@ class _TasksListSectionState extends State<TasksListSection> {
                     ),
                     SlidableAction(
                       onPressed: ((context) {
+                        setState(() {
+                          task.id[index];
+                          task.delete();
+                        });
                         base.dataStore.deleteTask(task: task);
                       }),
                       backgroundColor: ThemeColors.redColor,
@@ -132,7 +154,7 @@ class _TasksListSectionState extends State<TasksListSection> {
                 ),
                 child: Container(
                   width: widget.size.width,
-                  height: 65,
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: ThemeColors.whiteColor,
@@ -163,7 +185,7 @@ class _TasksListSectionState extends State<TasksListSection> {
                       ),
                     ),
                     subtitle: Text(
-                      task.taskCategory,
+                      "${task.taskCategory} \n${task.taskFinalDate}",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey.shade500,
@@ -179,7 +201,9 @@ class _TasksListSectionState extends State<TasksListSection> {
                             builder: ((context, setState) => IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      task.isFavorite = !task.isFavorite;
+                                      // task.isFavorite = !task.isFavorite;
+
+                                      task.isFavorite = true;
 
                                       if (task.isFavorite == true) {
                                         Navigator.pushNamed(context,

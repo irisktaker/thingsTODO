@@ -5,6 +5,7 @@ import '/main.dart';
 import '/models/task.dart';
 import '../sections/all_tasks_done_section.dart';
 import '/widgets/tab_bar_widgets/sections/tasks_list_section.dart';
+
 class MonthlyTODOScreen extends StatelessWidget {
   const MonthlyTODOScreen({Key? key}) : super(key: key);
 
@@ -22,8 +23,7 @@ class MonthlyTODOScreen extends StatelessWidget {
         tasks = tasks
             .where(
               (element) =>
-                  element.taskFinalDate.day > element.createdAt.day + 7 &&
-                  element.taskFinalDate.day >= element.createdAt.day,
+                  element.taskFinalDate.day > element.createdAt.weekday,
             )
             .toList();
 

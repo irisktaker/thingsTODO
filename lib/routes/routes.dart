@@ -6,6 +6,7 @@ import 'package:things_to_do/view/tasks_screens/edit_task/edit_task_screen.dart'
 import 'package:things_to_do/view/tasks_screens/important_tasks/important_tasks_screen.dart';
 import 'package:things_to_do/view/tasks_screens/later_tasks/later_task_screen.dart';
 import 'package:things_to_do/view/tasks_screens/new_task/new_task_screen.dart';
+import 'package:things_to_do/view/tasks_screens/task_details/task_details_screen.dart';
 
 Map<String, WidgetBuilder> routes = {
   '/': (context) => const LoginScreen(),
@@ -15,4 +16,5 @@ Map<String, WidgetBuilder> routes = {
   DoneTaskScreen.screenRoute: (context) => const DoneTaskScreen(),
   LaterTaskScreen.screenRoute: (context) => const LaterTaskScreen(),
   EditTakScreen.screenRoute: (context) => const EditTakScreen(),
+  // TaskDetailsScreen.screenRoute: (context) => const TaskDetailsScreen(),
 };
