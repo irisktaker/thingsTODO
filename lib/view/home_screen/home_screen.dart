@@ -15,6 +15,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  ScrollController? scrollController;
+  TabController? tabController;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -27,14 +30,25 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Scaffold(
           backgroundColor: Colors.grey.shade200,
-          appBar: homeScreenAppBar(context, setState),
+          // appBar: homeScreenAppBar(context, setState),
           drawer: buildDrawer(size, setState),
-          body: const TabBarView(
-            children: [
-              DailyTODOScreen(),
-              WeeklyTODOScreen(),
-              MonthlyTODOScreen(),
-            ],
+          body: NestedScrollView(
+            controller: scrollController,
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                homeScreenAppBar(
+                    context, setState, innerBoxIsScrolled, tabController),
+              ];
+            },
+            body: TabBarView(
+              controller: tabController,
+              children: const [
+                DailyTODOScreen(),
+                WeeklyTODOScreen(),
+                MonthlyTODOScreen(),
+              ],
+            ),
           ),
         ),
       ),

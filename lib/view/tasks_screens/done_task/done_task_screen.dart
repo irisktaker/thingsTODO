@@ -58,7 +58,7 @@ class DoneTaskScreen extends StatelessWidget {
               // --
               (tasks.isNotEmpty)
                   ? TasksListSection(tasks, size)
-                  : AllTasksDoneSection(tasks,size),
+                  : AllTasksDoneSection(tasks, size),
             ],
           ),
         );

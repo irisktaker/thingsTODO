@@ -31,11 +31,11 @@ class _TasksListSectionState extends State<TasksListSection> {
     final base = BaseWidget.of(context);
 
     return SafeArea(
-      child: Container(
+      child: SizedBox(
         width: widget.size.width,
-        height: 640,
-        padding: const EdgeInsets.only(bottom: 80),
+        height: widget.size.height,
         child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.tasks.length,
           itemBuilder: (context, index) {
             var task = widget.tasks[index];

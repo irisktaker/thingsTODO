@@ -83,26 +83,23 @@ class WeeklyTODOScreen extends StatelessWidget {
             // sortByDays  ?
 
             (tasks.isNotEmpty)
-                ? SizedBox(
-                    height: 500,
-                    child: ListView(
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Text(DateFormat.yMMMd().format(DateTime.now()),
+                ? Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text(DateFormat.yMMMd().format(DateTime.now()),
 
-                              // TODO: ___
+                            // TODO: ___
 
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: ThemeColors.primaryColor,
-                              )),
-                        ),
-                        TasksListSection(tasks, size),
-                      ],
-                    ),
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: ThemeColors.primaryColor,
+                            )),
+                      ),
+                      TasksListSection(tasks, size),
+                    ],
                   )
                 : AllTasksDoneSection(tasks, size),
           ],

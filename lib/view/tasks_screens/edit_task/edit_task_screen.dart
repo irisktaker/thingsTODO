@@ -75,7 +75,7 @@ class _EditTakScreenState extends State<EditTakScreen> {
               child: const CustomSearchWidget(),
             ),
             CustomTasksTextFieldWidget(
-              // title: "Task Name",
+              title: "Task Name",
               text: widget.task.taskTitle,
               hintStyle: const TextStyle(
                 fontSize: 16,
@@ -84,11 +84,12 @@ class _EditTakScreenState extends State<EditTakScreen> {
               controller: _bloc.taskTitleController,
             ),
             CustomTasksTextFieldWidget(
-                // title: "Description",
-                text: widget.task.taskDesc,
-                controller: _bloc.taskDescriptionController),
+              title: "Description",
+              text: widget.task.taskDesc,
+              controller: _bloc.taskDescriptionController,
+            ),
             CustomTasksTextFieldWidget(
-              // title: "Category",
+              title: "Category",
               text: widget.task.taskCategory,
               controller: _bloc.taskCategoryController,
             ),
@@ -146,7 +147,7 @@ class _EditTakScreenState extends State<EditTakScreen> {
             ),
             Divider(height: 0, color: Colors.grey.shade300, thickness: 1),
             CustomTasksTextFieldWidget(
-                // title: "Notification",
+                title: "Notification",
                 text: widget.task.notification,
                 controller: _bloc.taskNotificationController),
             const Spacer(),

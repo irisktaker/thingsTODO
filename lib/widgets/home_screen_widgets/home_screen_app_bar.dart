@@ -4,7 +4,12 @@ import 'package:things_to_do/view/tasks_screens/new_task/new_task_screen.dart';
 
 import '../shared_widgets/search_text_field.dart';
 
-PreferredSizeWidget homeScreenAppBar(BuildContext context, setState) => AppBar(
+SliverAppBar homeScreenAppBar(
+        BuildContext context, setState, innerBoxIsScrolled, tabController) =>
+    SliverAppBar(
+      pinned: true,
+      floating: true,
+      forceElevated: innerBoxIsScrolled,
       automaticallyImplyLeading: false,
       toolbarHeight: 60,
       leading: Builder(
@@ -20,7 +25,7 @@ PreferredSizeWidget homeScreenAppBar(BuildContext context, setState) => AppBar(
               ),
             )),
       ),
-      bottom: buildTabBar(context),
+      bottom: buildTabBar(context, tabController, innerBoxIsScrolled),
       title: Image.asset(
         "assets/logo/logo.png",
         width: 110,
@@ -45,30 +50,37 @@ PreferredSizeWidget homeScreenAppBar(BuildContext context, setState) => AppBar(
       ],
     );
 
-PreferredSize buildTabBar(BuildContext context) {
-  return PreferredSize(
-    preferredSize: Size(MediaQuery.of(context).size.width, 110),
-    child: Column(
-      children: const [
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
+PreferredSize buildTabBar(
+    BuildContext context, TabController? tabController, innerBoxIsScrolled) {
+  TabController? tabController;
+
+  return !innerBoxIsScrolled
+      ? PreferredSize(
+          preferredSize: Size(MediaQuery.of(context).size.width, 120),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                child: CustomSearchWidget(),
+              ),
+              TabBar(
+                isScrollable: false,
+                controller: tabController,
+                indicatorColor: ThemeColors.whiteColor,
+                unselectedLabelColor: ThemeColors.lightGreyColor,
+                labelStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                tabs: const [
+                  Tab(child: Text("DAILY")),
+                  Tab(child: Text("WEEKLY")),
+                  Tab(child: Text("MONTHLY")),
+                ],
+              ),
+            ],
           ),
-          child: CustomSearchWidget(),
-        ),
-        TabBar(
-          isScrollable: false,
-          indicatorColor: ThemeColors.whiteColor,
-          unselectedLabelColor: ThemeColors.lightGreyColor,
-          labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          tabs: [
-            Tab(child: Text("DAILY")),
-            Tab(child: Text("WEEKLY")),
-            Tab(child: Text("MONTHLY")),
-          ],
-        ),
-      ],
-    ),
-  );
+        )
+      : PreferredSize(child: Container(), preferredSize: const Size(0.0, 0.0));
 }

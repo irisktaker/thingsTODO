@@ -7,13 +7,13 @@ class CustomTasksTextFieldWidget extends StatelessWidget {
   CustomTasksTextFieldWidget(
       {Key? key,
       this.text,
-      // this.title,
+      this.title,
       this.hintStyle,
       required this.controller})
       : super(key: key);
 
   String? text;
-  // String? title;
+  String? title;
   TextStyle? hintStyle;
   TextEditingController? controller;
 
@@ -24,16 +24,17 @@ class CustomTasksTextFieldWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 16, top: 16),
-          //   child: Text(
-          //     title,
-          //     style: TextStyle(
-          //       fontSize: 16,
-          //       color: ThemeColors.greyColor.withOpacity(0.6),
-          //     ),
-          //   ),
-          // ),
+          title != null
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 16),
+                  child: Text(
+                    title ?? "",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: ThemeColors.greyColor.withOpacity(0.6),
+                    ),
+                  ))
+              : Container(),
           TextField(
             controller: controller,
             decoration: InputDecoration(
