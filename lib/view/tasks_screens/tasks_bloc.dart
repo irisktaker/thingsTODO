@@ -25,7 +25,7 @@ class TasksBloc {
     }
   }
 
-  bool validatePriorityColor() {
+  bool fieldsValidator() {
     if (taskTitleController.text.isEmpty) {
       return false;
     } else if (taskDescriptionController.text.isEmpty) {
@@ -54,11 +54,8 @@ class TasksBloc {
     );
   }
 
-  void newTaskFormValidate(
-    BaseWidget base,
-    BuildContext context,
-  ) {
-    if (validatePriorityColor()) {
+  void addNewTask(BaseWidget base, BuildContext context) {
+    if (fieldsValidator()) {
       var task = Task.create(
         taskTitle: taskTitleController.text,
         taskCategory: taskCategoryController.text,

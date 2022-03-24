@@ -134,7 +134,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 controller: _bloc.taskNotificationController),
             const Spacer(),
             ElevatedButton(
-              onPressed: () => _bloc.newTaskFormValidate(base, context),
+              onPressed: () => _bloc.addNewTask(base, context),
               child: const Text(
                 "ADD",
                 style: TextStyle(fontSize: 18),

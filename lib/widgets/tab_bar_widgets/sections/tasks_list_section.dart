@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -28,6 +29,8 @@ class TasksListSection extends StatefulWidget {
 class _TasksListSectionState extends State<TasksListSection> {
   @override
   Widget build(BuildContext context) {
+    // var box = Hive.box('tasks');
+
     final base = BaseWidget.of(context);
 
     return SafeArea(
@@ -67,8 +70,11 @@ class _TasksListSectionState extends State<TasksListSection> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(
-                                  context, EditTakScreen.screenRoute);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditTakScreen(
+                                          widget.tasks, task, widget.size)));
                             },
                             child: const Text('Edit'),
                           )

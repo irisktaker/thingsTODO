@@ -58,56 +58,54 @@ class TaskDetailsScreen extends StatelessWidget {
               color: ThemeColors.primaryColor,
               child: const CustomSearchWidget(),
             ),
-            Expanded(
-              child: Container(
-                height: 380,
-                width: size.width,
-                padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.only(top: 80, left: 20, right: 20),
-                decoration: const BoxDecoration(
-                  color: ThemeColors.whiteColor,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      task.taskTitle,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+            Container(
+              height: 380,
+              width: size.width,
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.only(top: 80, left: 20, right: 20),
+              decoration: const BoxDecoration(
+                color: ThemeColors.whiteColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    task.taskTitle,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "${DateFormat.yMMMd().format(task.taskFinalDate)} | ${DateFormat('kk:mm a').format(task.createdAt)}",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: ThemeColors.lightGreyColor,
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "${DateFormat.yMMMd().format(task.taskFinalDate)} | ${DateFormat('kk:mm a').format(task.createdAt)}",
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: ThemeColors.lightGreyColor,
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    task.taskDesc,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: ThemeColors.greyColor,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      const Text(
+                        "Category: ",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    const SizedBox(height: 14),
-                    Text(
-                      task.taskDesc,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: ThemeColors.greyColor,
+                      Text(
+                        task.taskCategory,
+                        style: const TextStyle(
+                            fontSize: 14, color: ThemeColors.greyColor),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        const Text(
-                          "Category: ",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          task.taskCategory,
-                          style: const TextStyle(
-                              fontSize: 14, color: ThemeColors.greyColor),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -128,13 +126,17 @@ class TaskDetailsScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditTakScreen(tasks, task, size)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EditTakScreen(tasks, task, size)));
                 },
                 icon: const Icon(Icons.edit),
               ),
               IconButton(
                 onPressed: () {
-                  // TODO 
+                  // TODO
                   // Navigator.pushNamed(context, EditTakScreen.screenRoute);
                 },
                 icon: const Icon(Icons.schedule),

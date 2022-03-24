@@ -27,6 +27,13 @@ class EditTakScreen extends StatefulWidget {
 class _EditTakScreenState extends State<EditTakScreen> {
   final TasksBloc _bloc = TasksBloc();
 
+  // TODO
+  // void updateTask() {
+  //   if(_bloc.fieldsValidator(value)) {
+
+  //   }
+  // }
+
   @override
   void initState() {
     super.initState();
@@ -82,16 +89,34 @@ class _EditTakScreenState extends State<EditTakScreen> {
                 fontWeight: FontWeight.bold,
               ),
               controller: _bloc.taskTitleController,
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  widget.task.taskTitle = value;
+                  widget.task.save();
+                }
+              },
             ),
             CustomTasksTextFieldWidget(
               title: "Description",
               text: widget.task.taskDesc,
               controller: _bloc.taskDescriptionController,
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  widget.task.taskDesc = value;
+                  widget.task.save();
+                }
+              },
             ),
             CustomTasksTextFieldWidget(
               title: "Category",
               text: widget.task.taskCategory,
               controller: _bloc.taskCategoryController,
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  widget.task.taskCategory = value;
+                  widget.task.save();
+                }
+              },
             ),
             Container(
               width: double.infinity,
@@ -147,12 +172,19 @@ class _EditTakScreenState extends State<EditTakScreen> {
             ),
             Divider(height: 0, color: Colors.grey.shade300, thickness: 1),
             CustomTasksTextFieldWidget(
-                title: "Notification",
-                text: widget.task.notification,
-                controller: _bloc.taskNotificationController),
+              title: "Notification",
+              text: widget.task.notification,
+              controller: _bloc.taskNotificationController,
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  widget.task.notification = value;
+                  widget.task.save();
+                }
+              },
+            ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () => _bloc.newTaskFormValidate(base, context),
+              onPressed: () => Navigator.pop(context),
               child: const Text(
                 "Edit",
                 style: TextStyle(fontSize: 18),

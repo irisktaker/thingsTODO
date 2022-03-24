@@ -9,6 +9,7 @@ class CustomTasksTextFieldWidget extends StatelessWidget {
       this.text,
       this.title,
       this.hintStyle,
+      this.onSubmitted,
       required this.controller})
       : super(key: key);
 
@@ -16,6 +17,7 @@ class CustomTasksTextFieldWidget extends StatelessWidget {
   String? title;
   TextStyle? hintStyle;
   TextEditingController? controller;
+  void Function(String)? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class CustomTasksTextFieldWidget extends StatelessWidget {
               : Container(),
           TextField(
             controller: controller,
+            onSubmitted: onSubmitted,
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(
                   vertical: 20,

@@ -2,6 +2,7 @@
 
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:things_to_do/view/login_screen/login_screen_bloc.dart';
 
 import '/main.dart';
 import '/models/task.dart';
@@ -18,6 +19,18 @@ class CompletedTasksSection extends StatefulWidget {
 }
 
 class _CompletedTasksSectionState extends State<CompletedTasksSection> {
+  final LoginScreenBloc _bloc = LoginScreenBloc();
+
+  late String name;
+
+  @override
+  void initState() {
+    _bloc.storage;
+    _bloc.getUserLoginInfo();
+    name = _bloc.storage.read(key: "U").toString();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // --
@@ -26,7 +39,7 @@ class _CompletedTasksSectionState extends State<CompletedTasksSection> {
     List<Task> tasks = box.values.toList();
 
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       padding: const EdgeInsets.all(16),
       height: 130,
       decoration: const BoxDecoration(
@@ -41,7 +54,7 @@ class _CompletedTasksSectionState extends State<CompletedTasksSection> {
                 Singleton.instance.greeting(),
                 style: TextStyle(fontSize: 18, color: Colors.grey.shade700),
               ),
-              const Text(
+              Text(
                 " Naser",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
