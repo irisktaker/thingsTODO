@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '/main.dart';
 import '/models/task.dart';
+import '/utils/colors.dart';
 import '../sections/all_tasks_done_section.dart';
 import '/widgets/tab_bar_widgets/sections/tasks_list_section.dart';
 
@@ -31,6 +33,36 @@ class MonthlyTODOScreen extends StatelessWidget {
           children: [
             // --
             Container(
+              // height: 110,
+              margin: const EdgeInsets.only(bottom: 16),
+              child: SfCalendar(
+                view: CalendarView.month,
+                timeSlotViewSettings: const TimeSlotViewSettings(
+                  startHour: 0,
+                  endHour: 0,
+                ),
+                viewNavigationMode: ViewNavigationMode.snap,
+                initialDisplayDate: DateTime.now(),
+                headerHeight: 45,
+                headerDateFormat: "MMM, yyy",
+                headerStyle: const CalendarHeaderStyle(
+                  textAlign: TextAlign.center,
+                  backgroundColor: ThemeColors.whiteColor,
+                  textStyle:
+                      TextStyle(color: ThemeColors.blackColor, fontSize: 20),
+                ),
+                cellBorderColor: Colors.transparent,
+                backgroundColor: ThemeColors.whiteColor,
+                todayHighlightColor: ThemeColors.whiteColor,
+                showDatePickerButton: false,
+                todayTextStyle: const TextStyle(
+                  color: ThemeColors.blackColor,
+                ),
+              ),
+            ),
+
+            // --
+            Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Text(
@@ -43,7 +75,7 @@ class MonthlyTODOScreen extends StatelessWidget {
             // --
             (tasks.isNotEmpty)
                 ? TasksListSection(tasks, size)
-                : AllTasksDoneSection(tasks,size),
+                : AllTasksDoneSection(tasks, size),
           ],
         );
       },

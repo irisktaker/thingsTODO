@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -27,10 +26,17 @@ class TasksListSection extends StatefulWidget {
 }
 
 class _TasksListSectionState extends State<TasksListSection> {
+  // String query = '';
+  // late List<Task> allTasks;
+
+  @override
+  void initState() {
+    // widget.tasks = allTasks;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // var box = Hive.box('tasks');
-
     final base = BaseWidget.of(context);
 
     return SafeArea(
@@ -45,43 +51,8 @@ class _TasksListSectionState extends State<TasksListSection> {
             //..
 
             return InkWell(
-              onDoubleTap: () {
-                if (widget.tasks[index] == widget.tasks[index]) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TaskDetailsScreen(
-                              widget.tasks, task, widget.size)));
-                }
-              },
-              onLongPress: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text('Do you want to edit the task?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              //TO_DO: Handle Edit
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EditTakScreen(
-                                          widget.tasks, task, widget.size)));
-                            },
-                            child: const Text('Edit'),
-                          )
-                        ],
-                      );
-                    });
-              },
+              onDoubleTap: () => onDoubleTap(task, index),
+              onLongPress: () => onLongPress(task),
               child: Slidable(
                 key: Key(task.id),
                 startActionPane: ActionPane(
@@ -191,7 +162,7 @@ class _TasksListSectionState extends State<TasksListSection> {
                       ),
                     ),
                     subtitle: Text(
-                      "${task.taskCategory} \n${task.taskFinalDate}",
+                      task.taskCategory,
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey.shade500,
@@ -203,39 +174,37 @@ class _TasksListSectionState extends State<TasksListSection> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // --
-                          StatefulBuilder(
-                            builder: ((context, setState) => IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      // task.isFavorite = !task.isFavorite;
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                task.isFavorite = !task.isFavorite;
 
-                                      task.isFavorite = true;
+                                // task.isFavorite = true;
 
-                                      if (task.isFavorite == true) {
-                                        Navigator.pushNamed(context,
-                                            ImportantTaskScreen.screenRoute);
-                                      }
-                                    });
-                                  },
-                                  icon: task.isFavorite
-                                      ? const Icon(
-                                          Icons.star,
-                                          color: ThemeColors.yellowColor,
-                                          size: 26,
-                                        )
-                                      : const Icon(
-                                          Icons.star_border_outlined,
-                                          size: 26,
-                                        ),
-                                )),
+                                if (task.isFavorite == true) {
+                                  Navigator.pushNamed(
+                                      context, ImportantTaskScreen.screenRoute);
+                                } else {
+                                  Navigator.pop(context);
+                                }
+                              });
+                            },
+                            icon: task.isFavorite
+                                ? const Icon(
+                                    Icons.star,
+                                    color: ThemeColors.yellowColor,
+                                    size: 26,
+                                  )
+                                : const Icon(
+                                    Icons.star_border_outlined,
+                                    size: 26,
+                                  ),
                           ),
+
                           BuildCustomCircle(
                             color: ColorParser
                                 .colorList[int.parse(task.taskColor)],
-                            // color: Color((math.Random().nextDouble() * 0xFFFFFF)
-                            //         .toInt())
-                            //     .withOpacity(1.0),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -248,4 +217,57 @@ class _TasksListSectionState extends State<TasksListSection> {
       ),
     );
   }
+
+  void onDoubleTap(Task task, int index) {
+    if (widget.tasks[index] == widget.tasks[index]) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  TaskDetailsScreen(widget.tasks, task, widget.size)));
+    }
+  }
+
+  void onLongPress(Task task) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Do you want to edit the task?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  //TO_DO: Handle Edit
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EditTakScreen(widget.tasks, task, widget.size)));
+                },
+                child: const Text('Edit'),
+              )
+            ],
+          );
+        });
+  }
+
+  // void searchTask(String query) {
+  //   final tasks = allTasks.where((task) {
+  //     final titleLower = task.taskTitle.toLowerCase();
+  //     final subTitleLower = task.taskCategory.toLowerCase();
+  //     final searchLower = query.toLowerCase();
+  //     return titleLower.contains(searchLower) ||
+  //         subTitleLower.contains(searchLower);
+  //   }).toList();
+  //   setState(() {
+  //     this.query = query;
+  //     widget.tasks = tasks;
+  //   });
+  // }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:things_to_do/utils/colors.dart';
-import 'package:things_to_do/view/tasks_screens/new_task/new_task_screen.dart';
 
+import '/utils/colors.dart';
 import '../shared_widgets/search_text_field.dart';
+import '/view/tasks_screens/new_task/new_task_screen.dart';
 
 SliverAppBar homeScreenAppBar(
         BuildContext context, setState, innerBoxIsScrolled, tabController) =>
