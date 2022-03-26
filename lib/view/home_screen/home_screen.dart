@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '/widgets/home_screen_widgets/drawer.dart';
 import '/widgets/home_screen_widgets/home_screen_app_bar.dart';
-import '/widgets/tab_bar_widgets/daily_tab/daily_todo_widget.dart';
-import '/widgets/tab_bar_widgets/weekly_tab/weekly_todo_widget.dart';
-import '/widgets/tab_bar_widgets/monthly_tab/monthly_todo_widget.dart';
+import '/widgets/tab_bar_widgets/tabs/daily_tab/daily_todo_widget.dart';
+import '/widgets/tab_bar_widgets/tabs/weekly_tab/weekly_todo_widget.dart';
+import '/widgets/tab_bar_widgets/tabs/monthly_tab/monthly_todo_widget.dart';
+
 
 class HomeScreen extends StatefulWidget {
   static const screenRoute = 'thingsToDoScreen';

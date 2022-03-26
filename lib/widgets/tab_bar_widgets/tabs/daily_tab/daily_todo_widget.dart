@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import '/main.dart';
 import '/models/task.dart';
-import '../sections/all_tasks_done_section.dart';
 import '/widgets/tab_bar_widgets/sections/tasks_list_section.dart';
+import '/widgets/tab_bar_widgets/sections/all_tasks_done_section.dart';
 import '/widgets/tab_bar_widgets/sections/completed_tasks_section.dart';
 
 class DailyTODOScreen extends StatefulWidget {
@@ -38,6 +38,7 @@ class _DailyTODOScreenState extends State<DailyTODOScreen> {
             .toList();
 
         return ListView(
+          padding: const EdgeInsets.all(0),
           children: [
             // --
             CompletedTasksSection(tasks),
