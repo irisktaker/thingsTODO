@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -49,9 +48,8 @@ class WeeklyTODOScreen extends StatelessWidget {
           padding: const EdgeInsets.all(0),
           children: [
             // --
-            Container(
+            SizedBox(
               height: 110,
-              margin: const EdgeInsets.only(bottom: 16),
               child: SfCalendar(
                 view: CalendarView.week,
                 timeSlotViewSettings: const TimeSlotViewSettings(
@@ -86,9 +84,10 @@ class WeeklyTODOScreen extends StatelessWidget {
                 ? Column(
                     children: [
                       Container(
+                        margin: const EdgeInsets.symmetric(vertical: 6),
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(DateFormat.yMMMd().format(DateTime.now()),
+                        // DateFormat.yMMMd().format(DateTime.now()
+                        child: Text("Today",
 
                             // TODO: ___
 

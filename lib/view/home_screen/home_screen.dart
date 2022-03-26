@@ -6,7 +6,6 @@ import '/widgets/tab_bar_widgets/tabs/daily_tab/daily_todo_widget.dart';
 import '/widgets/tab_bar_widgets/tabs/weekly_tab/weekly_todo_widget.dart';
 import '/widgets/tab_bar_widgets/tabs/monthly_tab/monthly_todo_widget.dart';
 
-
 class HomeScreen extends StatefulWidget {
   static const screenRoute = 'thingsToDoScreen';
 

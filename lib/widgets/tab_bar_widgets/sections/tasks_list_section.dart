@@ -39,181 +39,179 @@ class _TasksListSectionState extends State<TasksListSection> {
   Widget build(BuildContext context) {
     final base = BaseWidget.of(context);
 
-    return SafeArea(
-      child: SizedBox(
-        width: widget.size.width,
-        height: widget.size.height,
-        child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: widget.tasks.length,
-          itemBuilder: (context, index) {
-            var task = widget.tasks[index];
-            //..
+    return SizedBox(
+      width: widget.size.width,
+      height: widget.size.height,
+      child: ListView.builder(
+        padding: const EdgeInsets.all(0),
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: widget.tasks.length,
+        itemBuilder: (context, index) {
+          var task = widget.tasks[index];
+          //..
 
-            return InkWell(
-              onDoubleTap: () => onDoubleTap(task, index),
-              onLongPress: () => onLongPress(task),
-              child: Slidable(
-                key: Key(task.id),
-                startActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  dismissible: DismissiblePane(onDismissed: () {}),
-                  children: [
-                    SlidableAction(
-                      onPressed: ((context) {
-                        setState(() {
-                          task.isDone = true;
+          return InkWell(
+            onDoubleTap: () => onDoubleTap(task, index),
+            onLongPress: () => onLongPress(task),
+            child: Slidable(
+              key: Key(task.id),
+              startActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                dismissible: DismissiblePane(onDismissed: () {}),
+                children: [
+                  SlidableAction(
+                    onPressed: ((context) {
+                      setState(() {
+                        task.isDone = true;
 
-                          if (task.isDone) {
-                            task.id[index];
-
-                            Navigator.pushNamed(
-                                context, DoneTaskScreen.screenRoute,
-                                arguments: task.isDone);
-                          }
-
-                          task.save();
-                        });
-                      }),
-                      backgroundColor: ThemeColors.blueColor,
-                      foregroundColor: ThemeColors.whiteColor,
-                      icon: Icons.done,
-                      label: 'Done',
-                    ),
-                    SlidableAction(
-                      onPressed: ((context) {
-                        task.save();
-                      }),
-                      backgroundColor: ThemeColors.greenColor,
-                      foregroundColor: ThemeColors.whiteColor,
-                      icon: Icons.save_alt_outlined,
-                      label: 'Save',
-                    ),
-                  ],
-                ),
-                endActionPane: ActionPane(
-                  motion: const ScrollMotion(),
-                  dismissible: DismissiblePane(onDismissed: () {}),
-                  children: [
-                    SlidableAction(
-                      onPressed: (context) {
-                        setState(() {
-                          task.isLater = true;
-
-                          if (task.isLater) {
-                            task.id[index];
-                            Navigator.pushNamed(
-                                context, LaterTaskScreen.screenRoute);
-                          }
-
-                          task.save();
-                        });
-                      },
-                      backgroundColor: ThemeColors.orangeColor,
-                      foregroundColor: ThemeColors.whiteColor,
-                      icon: Icons.watch_later_outlined,
-                      label: 'Later',
-                    ),
-                    SlidableAction(
-                      onPressed: ((context) {
-                        setState(() {
+                        if (task.isDone) {
                           task.id[index];
-                          task.delete();
-                        });
-                        base.dataStore.deleteTask(task: task);
-                      }),
-                      backgroundColor: ThemeColors.redColor,
-                      foregroundColor: ThemeColors.whiteColor,
-                      icon: Icons.delete,
-                      label: 'Delete',
+
+                          Navigator.pushNamed(
+                              context, DoneTaskScreen.screenRoute,
+                              arguments: task.isDone);
+                        }
+
+                        task.save();
+                      });
+                    }),
+                    backgroundColor: ThemeColors.blueColor,
+                    foregroundColor: ThemeColors.whiteColor,
+                    icon: Icons.done,
+                    label: 'Done',
+                  ),
+                  SlidableAction(
+                    onPressed: ((context) {
+                      task.save();
+                    }),
+                    backgroundColor: ThemeColors.greenColor,
+                    foregroundColor: ThemeColors.whiteColor,
+                    icon: Icons.save_alt_outlined,
+                    label: 'Save',
+                  ),
+                ],
+              ),
+              endActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                dismissible: DismissiblePane(onDismissed: () {}),
+                children: [
+                  SlidableAction(
+                    onPressed: (context) {
+                      setState(() {
+                        task.isLater = true;
+
+                        if (task.isLater) {
+                          task.id[index];
+                          Navigator.pushNamed(
+                              context, LaterTaskScreen.screenRoute);
+                        }
+
+                        task.save();
+                      });
+                    },
+                    backgroundColor: ThemeColors.orangeColor,
+                    foregroundColor: ThemeColors.whiteColor,
+                    icon: Icons.watch_later_outlined,
+                    label: 'Later',
+                  ),
+                  SlidableAction(
+                    onPressed: ((context) {
+                      setState(() {
+                        task.id[index];
+                        task.delete();
+                      });
+                      base.dataStore.deleteTask(task: task);
+                    }),
+                    backgroundColor: ThemeColors.redColor,
+                    foregroundColor: ThemeColors.whiteColor,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                  ),
+                ],
+              ),
+              child: Container(
+                width: widget.size.width,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: ThemeColors.whiteColor,
+                    border: Border.all(
+                      color: ThemeColors.lightGreyColor.withOpacity(0.5),
+                    )),
+                child: ListTile(
+                  leading: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        DateFormat('kk:mm \n a').format(task.createdAt),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColors.greyColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  title: Text(
+                    task.taskTitle,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: ThemeColors.greyColor,
+                      letterSpacing: 1.0,
                     ),
-                  ],
-                ),
-                child: Container(
-                  width: widget.size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: ThemeColors.whiteColor,
-                      border: Border.all(
-                        color: ThemeColors.lightGreyColor.withOpacity(0.5),
-                      )),
-                  child: ListTile(
-                    leading: Column(
+                  ),
+                  subtitle: Text(
+                    task.taskCategory,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                  trailing: SizedBox(
+                    width: 80,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          DateFormat('kk:mm \n a').format(task.createdAt),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: ThemeColors.greyColor,
-                          ),
+                        // --
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              task.isFavorite = !task.isFavorite;
+
+                              // task.isFavorite = true;
+
+                              if (task.isFavorite == true) {
+                                Navigator.pushNamed(
+                                    context, ImportantTaskScreen.screenRoute);
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            });
+                          },
+                          icon: task.isFavorite
+                              ? const Icon(
+                                  Icons.star,
+                                  color: ThemeColors.yellowColor,
+                                  size: 26,
+                                )
+                              : const Icon(
+                                  Icons.star_border_outlined,
+                                  size: 26,
+                                ),
+                        ),
+
+                        BuildCustomCircle(
+                          color:
+                              ColorParser.colorList[int.parse(task.taskColor)],
                         ),
                       ],
-                    ),
-                    title: Text(
-                      task.taskTitle,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: ThemeColors.greyColor,
-                        letterSpacing: 1.0,
-                      ),
-                    ),
-                    subtitle: Text(
-                      task.taskCategory,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                    trailing: SizedBox(
-                      width: 80,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // --
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                task.isFavorite = !task.isFavorite;
-
-                                // task.isFavorite = true;
-
-                                if (task.isFavorite == true) {
-                                  Navigator.pushNamed(
-                                      context, ImportantTaskScreen.screenRoute);
-                                } else {
-                                  Navigator.pop(context);
-                                }
-                              });
-                            },
-                            icon: task.isFavorite
-                                ? const Icon(
-                                    Icons.star,
-                                    color: ThemeColors.yellowColor,
-                                    size: 26,
-                                  )
-                                : const Icon(
-                                    Icons.star_border_outlined,
-                                    size: 26,
-                                  ),
-                          ),
-
-                          BuildCustomCircle(
-                            color: ColorParser
-                                .colorList[int.parse(task.taskColor)],
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
