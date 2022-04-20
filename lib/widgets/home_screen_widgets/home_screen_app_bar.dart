@@ -56,7 +56,7 @@ PreferredSize buildTabBar(
 
   return !innerBoxIsScrolled
       ? PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 120),
+          preferredSize: Size(MediaQuery.of(context).size.width, 121),
           child: Column(
             children: [
               const Padding(

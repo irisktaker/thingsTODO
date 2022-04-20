@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     buildCustomDivider(
-                      size: size.width / 2 - 66,
+                      size: size.width / 2 - 70,
                     ),
                     const Text(
                       "OR",
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     buildCustomDivider(
-                      size: size.width / 2 - 66,
+                      size: size.width / 2 - 70,
                     ),
                   ],
                 ),
